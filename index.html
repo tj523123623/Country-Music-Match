@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jaime Jangles World Tour - Country Music Match</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Dekko&family=Nunito:wght@600;700;800;900&display=swap");
+
+    :root {
+      --ink: #17142f;
+      --muted: #68647b;
+      --paper: #fffdf7;
+      --panel: #ffffff;
+      --line: #dedbed;
+      --aqua: #1fb8b2;
+      --pink: #f06292;
+      --gold: #f6b72d;
+      --green: #43a047;
+      --violet: #6f57d8;
+      --blue: #2d7dd2;
+      --shadow: 0 12px 28px rgba(49, 43, 86, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, #fffdf7 0%, #f9fbff 44%, #fff9fb 100%);
+      color: var(--ink);
+      font-family: "Nunito", system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:not(:disabled) {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:not(:disabled):active {
+      transition-duration: 0.05s;
+    }
+
+    @keyframes correctPop {
+      0% {
+        transform: scale(1);
+      }
+      45% {
+        transform: scale(1.025);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes wrongNudge {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+      30% {
+        transform: translateX(-3px);
+      }
+      65% {
+        transform: translateX(3px);
+      }
+    }
+
+    @keyframes softFloat {
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-5px) rotate(-1deg);
+      }
+    }
+
+    @keyframes choiceEnter {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes shineSweep {
+      from {
+        transform: translateX(-140%) skewX(-18deg);
+      }
+      to {
+        transform: translateX(220%) skewX(-18deg);
+      }
+    }
+
+    @keyframes revealRise {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes badgeBounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      45% {
+        transform: translateY(-3px);
+      }
+    }
+
+    .app {
+      width: min(920px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 18px 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .bg-block {
+      position: fixed;
+      height: auto;
+      z-index: 0;
+      pointer-events: none;
+      filter: drop-shadow(0 12px 18px rgba(49, 43, 86, 0.18));
+      animation: softFloat 6.2s ease-in-out infinite;
+    }
+
+    .bg-block.corner-left {
+      width: clamp(96px, 15vw, 190px);
+      opacity: 0.72;
+      left: clamp(-62px, -4vw, -18px);
+      bottom: clamp(18px, 7vh, 72px);
+      transform: rotate(-8deg);
+    }
+
+    .bg-block.corner-right {
+      width: clamp(96px, 15vw, 190px);
+      opacity: 0.72;
+      right: clamp(-62px, -4vw, -18px);
+      top: clamp(150px, 23vh, 260px);
+      transform: scaleX(-1) rotate(-7deg);
+      animation-delay: 0.9s;
+    }
+
+    .bg-block.top-left {
+      width: clamp(64px, 9vw, 118px);
+      opacity: 0.32;
+      left: clamp(14px, 4vw, 60px);
+      top: clamp(24px, 5vh, 58px);
+      transform: rotate(10deg);
+      animation-delay: 1.4s;
+    }
+
+    .bg-block.mid-left {
+      width: clamp(72px, 10vw, 132px);
+      opacity: 0.28;
+      left: clamp(4px, 2vw, 34px);
+      top: 46%;
+      transform: rotate(7deg);
+      animation-delay: 2.1s;
+    }
+
+    .bg-block.mid-right {
+      width: clamp(78px, 11vw, 148px);
+      opacity: 0.28;
+      right: clamp(4px, 2vw, 36px);
+      bottom: 18%;
+      transform: scaleX(-1) rotate(9deg);
+      animation-delay: 2.7s;
+    }
+
+    .bg-block.bottom-right {
+      width: clamp(58px, 8vw, 108px);
+      opacity: 0.3;
+      right: clamp(42px, 8vw, 120px);
+      bottom: clamp(10px, 3vh, 36px);
+      transform: rotate(-14deg);
+      animation-delay: 3.2s;
+    }
+
+    .masthead {
+      display: grid;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .title-art-wrap {
+      display: grid;
+      place-items: center;
+      min-height: 112px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .title-art {
+      display: block;
+      width: min(100%, 640px);
+      max-height: 178px;
+      object-fit: contain;
+      animation: softFloat 5.4s ease-in-out infinite;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .game-title {
+      margin: 0;
+      font-family: "Dekko", cursive;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .tabs {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f5f3fb;
+    }
+
+    .tab-btn {
+      border: 0;
+      border-radius: 6px;
+      min-width: 82px;
+      padding: 8px 12px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+      transition: transform 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .tab-btn:active {
+      transform: scale(0.96);
+    }
+
+    .tab-btn.active {
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(49, 43, 86, 0.12);
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .score-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 9px 10px;
+      min-height: 62px;
+      display: grid;
+      align-content: center;
+      box-shadow: 0 6px 18px rgba(49, 43, 86, 0.08);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .stat-value {
+      font-family: "Dekko", cursive;
+      color: var(--ink);
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .question-area,
+    .result-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: revealRise 0.32s ease-out;
+    }
+
+    .listen-panel {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 16px;
+      padding: 16px;
+      align-items: stretch;
+    }
+
+    .cover {
+      min-height: 176px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f0f7f6;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      min-height: 176px;
+      object-fit: contain;
+      display: block;
+      padding: 8px;
+      animation: softFloat 4.8s ease-in-out infinite;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.34) 46%, transparent 58%);
+      transform: translateX(-140%) skewX(-18deg);
+      animation: shineSweep 4.2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cover-badge {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 900;
+      z-index: 2;
+      animation: badgeBounce 2.8s ease-in-out infinite;
+    }
+
+    .listen-copy {
+      display: grid;
+      align-content: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .round-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .mystery-title {
+      margin: 0;
+      font-family: "Dekko", cursive;
+      font-size: 40px;
+      line-height: 0.95;
+    }
+
+    .mystery-prompt {
+      margin: -4px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .audio-row {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .play-btn {
+      width: 58px;
+      height: 58px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      background: var(--pink);
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(240, 98, 146, 0.36);
+      transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .play-btn::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      transform: scale(0.78);
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .play-btn:hover:not(:disabled),
+    .play-btn:focus-visible {
+      transform: translateY(-1px) scale(1.03);
+      outline: 3px solid rgba(31, 184, 178, 0.28);
+      outline-offset: 2px;
+    }
+
+    .play-btn:hover:not(:disabled)::after,
+    .play-btn:focus-visible::after,
+    .play-btn.playing::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .play-btn.playing {
+      background: var(--violet);
+      box-shadow: 0 7px 18px rgba(111, 87, 216, 0.32);
+    }
+
+    .play-btn:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    .play-btn:active:not(:disabled) {
+      transform: scale(0.94);
+      box-shadow: 0 4px 11px rgba(240, 98, 146, 0.28);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 18px solid #fff;
+    }
+
+    .play-btn.playing .play-icon {
+      width: 18px;
+      height: 24px;
+      margin-left: 0;
+      border: 0;
+      position: relative;
+    }
+
+    .play-btn.playing .play-icon::before,
+    .play-btn.playing .play-icon::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 6px;
+      height: 24px;
+      border-radius: 3px;
+      background: #fff;
+    }
+
+    .play-btn.playing .play-icon::before {
+      left: 0;
+    }
+
+    .play-btn.playing .play-icon::after {
+      right: 0;
+    }
+
+    .audio-stack {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .wave {
+      height: 38px;
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      gap: 3px;
+      align-items: center;
+    }
+
+    .bar {
+      height: var(--h);
+      border-radius: 4px;
+      background: #ddd9ec;
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+
+    .is-playing .bar {
+      background: linear-gradient(180deg, var(--pink), var(--gold));
+      animation: pulseBar 0.84s ease-in-out infinite alternate;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes pulseBar {
+      from {
+        transform: scaleY(0.55);
+      }
+      to {
+        transform: scaleY(1.08);
+      }
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 8px;
+      background: #efedf7;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--aqua), var(--gold));
+      border-radius: inherit;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .answers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+
+    .answer-btn {
+      min-height: 64px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fcfbff;
+      color: var(--ink);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 900;
+      text-align: left;
+      box-shadow: 0 5px 14px rgba(49, 43, 86, 0.07);
+      transition: transform 0.14s ease, border 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+      position: relative;
+      overflow: hidden;
+      animation: choiceEnter 0.28s ease-out both;
+    }
+
+    .answer-btn:nth-child(2) {
+      animation-delay: 0.04s;
+    }
+
+    .answer-btn:nth-child(3) {
+      animation-delay: 0.08s;
+    }
+
+    .answer-btn:nth-child(4) {
+      animation-delay: 0.12s;
+    }
+
+    .answer-btn::after {
+      content: "";
+      position: absolute;
+      top: -20%;
+      bottom: -20%;
+      left: 0;
+      width: 36%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: translateX(-140%) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    .answer-btn:hover:not(:disabled),
+    .answer-btn:focus-visible {
+      border-color: var(--aqua);
+      background: #eefbf9;
+      transform: translateY(-1px);
+      outline: 3px solid rgba(31, 184, 178, 0.2);
+      outline-offset: 1px;
+    }
+
+    .answer-btn:hover:not(:disabled)::after,
+    .answer-btn:focus-visible::after {
+      animation: shineSweep 0.62s ease-out;
+    }
+
+    .answer-btn:disabled {
+      cursor: default;
+    }
+
+    .answer-btn:active:not(:disabled) {
+      transform: translateY(1px) scale(0.985);
+      box-shadow: 0 2px 8px rgba(49, 43, 86, 0.1);
+    }
+
+    .answer-btn.correct {
+      border-color: var(--green);
+      background: #eef9f0;
+      animation: correctPop 0.24s ease-out;
+    }
+
+    .answer-btn.wrong {
+      border-color: var(--pink);
+      background: #fff0f6;
+      color: #6a2444;
+      animation: wrongNudge 0.18s ease-in-out;
+    }
+
+    .flag {
+      width: 42px;
+      min-width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #ece8f4;
+      font-size: 24px;
+    }
+
+    .answer-name {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      line-height: 1.15;
+    }
+
+    .feedback {
+      margin: 0 16px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: #fff;
+      animation: revealRise 0.28s ease-out;
+    }
+
+    .feedback[hidden],
+    .result-panel[hidden],
+    .next-btn[hidden] {
+      display: none;
+    }
+
+    .reveal-card {
+      display: grid;
+      grid-template-columns: 184px 1fr;
+      gap: 14px;
+      padding: 14px;
+      align-items: stretch;
+    }
+
+    .reveal-media {
+      position: relative;
+      min-height: 154px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #f0f7f6;
+      border: 1px solid var(--line);
+    }
+
+    .reveal-image {
+      width: 100%;
+      height: 100%;
+      min-height: 154px;
+      object-fit: contain;
+      padding: 8px;
+      display: block;
+      animation: softFloat 4.6s ease-in-out infinite;
+    }
+
+    .reveal-flag {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid #ece8f4;
+      font-size: 27px;
+      box-shadow: 0 4px 12px rgba(49, 43, 86, 0.14);
+    }
+
+    .reveal-info {
+      min-width: 0;
+      display: grid;
+      align-content: center;
+      gap: 9px;
+    }
+
+    .feedback-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .feedback-title {
+      margin: 0;
+      font-family: "Dekko", cursive;
+      font-size: 27px;
+      line-height: 1;
+    }
+
+    .feedback-style {
+      color: #fff;
+      background: var(--violet);
+      border-radius: 6px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .feedback-country {
+      margin: 0;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .feedback-body {
+      color: #343044;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .next-btn,
+    .again-btn,
+    .reset-btn {
+      border: 0;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 900;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+
+    .next-btn {
+      width: calc(100% - 32px);
+      margin: 0 16px 16px;
+      min-height: 50px;
+      background: var(--gold);
+      color: #3f2700;
+      box-shadow: 0 7px 18px rgba(246, 183, 45, 0.3);
+    }
+
+    .next-btn:hover,
+    .again-btn:hover,
+    .reset-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .next-btn:active,
+    .again-btn:active,
+    .reset-btn:active {
+      transform: translateY(1px) scale(0.985);
+    }
+
+    .result-panel {
+      padding: 26px 18px;
+      text-align: center;
+    }
+
+    .result-score {
+      margin: 0 0 8px;
+      font-family: "Dekko", cursive;
+      font-size: 46px;
+      line-height: 1;
+    }
+
+    .result-copy {
+      margin: 0 auto 18px;
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-weight: 800;
+    }
+
+    .again-btn {
+      min-height: 48px;
+      padding: 0 22px;
+      background: var(--aqua);
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(31, 184, 178, 0.3);
+    }
+
+    .facts-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .facts-count {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .reset-btn {
+      min-height: 38px;
+      padding: 0 12px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .fact-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 7px 18px rgba(49, 43, 86, 0.08);
+      padding: 13px;
+      min-height: 184px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+    }
+
+    .fact-top {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .fact-country {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .fact-style {
+      width: fit-content;
+      border-radius: 6px;
+      padding: 4px 7px;
+      background: #eefbf9;
+      color: #087873;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .fact-text {
+      margin: 0;
+      color: #3f3a50;
+      font-size: 13px;
+      line-height: 1.48;
+      font-weight: 700;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      .bg-block {
+        width: clamp(76px, 18vw, 112px);
+        opacity: 0.46;
+      }
+
+      .bg-block.corner-left {
+        left: -44px;
+        bottom: 18px;
+      }
+
+      .bg-block.corner-right {
+        right: -46px;
+        top: 118px;
+      }
+
+      .bg-block.top-left,
+      .bg-block.mid-left,
+      .bg-block.mid-right,
+      .bg-block.bottom-right {
+        opacity: 0.18;
+      }
+
+      .listen-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .cover {
+        min-height: 158px;
+      }
+
+      .reveal-card {
+        grid-template-columns: 1fr;
+      }
+
+      .reveal-media {
+        min-height: 170px;
+      }
+
+      .facts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .bg-block {
+        opacity: 0.24;
+      }
+
+      .bg-block.corner-left {
+        left: -58px;
+        bottom: 10px;
+      }
+
+      .bg-block.corner-right {
+        right: -58px;
+        top: 96px;
+      }
+
+      .bg-block.top-left,
+      .bg-block.mid-left,
+      .bg-block.mid-right,
+      .bg-block.bottom-right {
+        display: none;
+      }
+
+      .app {
+        width: min(100% - 16px, 920px);
+        padding: 8px 0 22px;
+      }
+
+      .masthead {
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .title-art-wrap {
+        min-height: 78px;
+      }
+
+      .title-art {
+        max-height: 112px;
+      }
+
+      .top-row {
+        display: grid;
+        gap: 8px;
+      }
+
+      .game-title {
+        font-size: 24px;
+      }
+
+      .tabs {
+        width: 100%;
+      }
+
+      .tab-btn {
+        min-height: 42px;
+      }
+
+      .score-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+
+      .score-strip .stat:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .stat {
+        min-height: 48px;
+        padding: 7px 9px;
+      }
+
+      .stat-value {
+        font-size: 23px;
+      }
+
+      .question-area,
+      .result-panel {
+        border-radius: 8px;
+      }
+
+      .listen-panel {
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .cover,
+      .cover img {
+        min-height: 126px;
+      }
+
+      .listen-copy {
+        gap: 10px;
+      }
+
+      .mystery-title {
+        font-size: 30px;
+      }
+
+      .mystery-prompt {
+        font-size: 14px;
+      }
+
+      .audio-row {
+        grid-template-columns: 52px 1fr;
+        gap: 10px;
+      }
+
+      .play-btn {
+        width: 52px;
+        height: 52px;
+      }
+
+      .wave {
+        height: 30px;
+        gap: 2px;
+      }
+
+      .answers {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 0 10px 10px;
+      }
+
+      .answer-btn {
+        min-height: 58px;
+        padding: 8px 10px;
+      }
+
+      .flag {
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        font-size: 22px;
+      }
+
+      .feedback {
+        margin: 0 10px 10px;
+      }
+
+      .reveal-card {
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .reveal-media,
+      .reveal-image {
+        min-height: 138px;
+      }
+
+      .reveal-flag {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+      }
+
+      .feedback-head {
+        display: grid;
+        gap: 6px;
+      }
+
+      .feedback-title {
+        font-size: 25px;
+      }
+
+      .feedback-style {
+        white-space: normal;
+        width: fit-content;
+      }
+
+      .feedback-body {
+        font-size: 14px;
+      }
+
+      .next-btn {
+        width: calc(100% - 20px);
+        margin: 0 10px 10px;
+        min-height: 48px;
+      }
+
+      .result-panel {
+        padding: 22px 14px;
+      }
+
+      .result-score {
+        font-size: 40px;
+      }
+
+      .facts-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .facts-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .fact-card {
+        min-height: auto;
+        padding: 11px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .bg-block {
+        display: none;
+      }
+
+      .mystery-title {
+        font-size: 27px;
+      }
+
+      .audio-row {
+        grid-template-columns: 48px 1fr;
+      }
+
+      .play-btn {
+        width: 48px;
+        height: 48px;
+      }
+
+      .answer-btn {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .flag {
+        width: 34px;
+        min-width: 34px;
+        height: 34px;
+        font-size: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img class="bg-block corner-left" src="art/block.png" alt="" aria-hidden="true">
+  <img class="bg-block corner-right" src="art/block.png" alt="" aria-hidden="true">
+  <img class="bg-block top-left" src="art/block.png" alt="" aria-hidden="true">
+  <img class="bg-block mid-left" src="art/block.png" alt="" aria-hidden="true">
+  <img class="bg-block mid-right" src="art/block.png" alt="" aria-hidden="true">
+  <img class="bg-block bottom-right" src="art/block.png" alt="" aria-hidden="true">
+
+  <main class="app">
+    <header class="masthead">
+      <div class="title-art-wrap">
+        <img class="title-art" src="art/title.jpg" alt="Jaime Jangles World Tour">
+      </div>
+      <div class="top-row">
+        <h1 class="game-title">Country Music Match</h1>
+        <nav class="tabs" aria-label="Game sections">
+          <button class="tab-btn active" type="button" data-view="play">Play</button>
+          <button class="tab-btn" type="button" data-view="facts">Facts</button>
+        </nav>
+      </div>
+    </header>
+
+    <section id="playView" class="view active" aria-label="Country music match game">
+      <div class="score-strip" aria-live="polite">
+        <div class="stat">
+          <span class="stat-label">Stop</span>
+          <span id="stopStat" class="stat-value">1/1</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span id="scoreStat" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Streak</span>
+          <span id="streakStat" class="stat-value">0</span>
+        </div>
+      </div>
+
+      <section id="questionArea" class="question-area">
+        <div class="listen-panel">
+          <div class="cover">
+            <img src="art/styleimage_a.png" alt="">
+            <span id="coverBadge" class="cover-badge">Mystery stop</span>
+          </div>
+
+          <div class="listen-copy">
+            <div id="roundKicker" class="round-kicker">Stop 1</div>
+            <h2 id="mysteryTitle" class="mystery-title">What country is this music from?</h2>
+            <p id="mysteryPrompt" class="mystery-prompt">Play the music, then choose one of the four countries.</p>
+
+            <div id="audioWrap" class="audio-row">
+              <button id="playButton" class="play-btn" type="button" aria-label="Play audio">
+                <span class="play-icon" aria-hidden="true"></span>
+              </button>
+              <div class="audio-stack">
+                <div id="wave" class="wave" aria-hidden="true"></div>
+                <div id="progress" class="progress" role="slider" aria-label="Audio progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+                  <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div class="time-row">
+                  <span id="currentTime">0:00</span>
+                  <span id="duration">0:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="answers" class="answers" aria-label="Country choices"></div>
+
+        <section id="feedback" class="feedback" aria-live="polite" hidden>
+          <div class="reveal-card">
+            <div class="reveal-media">
+              <img id="feedbackImage" class="reveal-image" src="art/styleimage_a.png" alt="">
+              <span id="feedbackFlag" class="reveal-flag" aria-hidden="true"></span>
+            </div>
+            <div class="reveal-info">
+              <div class="feedback-head">
+                <h3 id="feedbackTitle" class="feedback-title">Correct</h3>
+                <span id="feedbackStyle" class="feedback-style">Style</span>
+              </div>
+              <p id="feedbackCountry" class="feedback-country"></p>
+              <div id="feedbackBody" class="feedback-body"></div>
+            </div>
+          </div>
+        </section>
+
+        <button id="nextButton" class="next-btn" type="button" hidden>Next stop</button>
+      </section>
+
+      <section id="resultPanel" class="result-panel" hidden>
+        <h2 id="resultScore" class="result-score">0/0</h2>
+        <p id="resultCopy" class="result-copy"></p>
+        <button id="againButton" class="again-btn" type="button">Play again</button>
+      </section>
+
+      <audio id="track" preload="metadata"></audio>
+    </section>
+
+    <section id="factsView" class="view" aria-label="Country music facts">
+      <div class="facts-toolbar">
+        <span id="factsCount" class="facts-count"></span>
+        <button id="resetButton" class="reset-btn" type="button">Reset game</button>
+      </div>
+      <div id="factsGrid" class="facts-grid"></div>
+    </section>
+  </main>
+
+  <script>
+    const FACTS = [
+      {
+        country: "Argentina",
+        style: "Tango",
+        flag: "🇦🇷",
+        audio: "music/ARGENTINA DRUMS AND HORNS_1.2.wav",
+        fact: "Tango was born in Buenos Aires in the late 1800s - a passionate dance and music style that tells stories through movement."
+      },
+      {
+        country: "Australia",
+        style: "Didgeridoo",
+        flag: "🇦🇺",
+        audio: "",
+        fact: "The didgeridoo is an ancient instrument developed by Indigenous Australians thousands of years ago - one of the world's oldest wind instruments."
+      },
+      {
+        country: "Barbados",
+        style: "Dancehall",
+        flag: "🇧🇧",
+        audio: "music/BARBADOS_2.wav",
+        fact: "Dancehall is a high-energy Caribbean music style closely linked to Jamaica, known for its strong rhythms and dance culture enjoyed across islands like Barbados."
+      },
+      {
+        country: "France",
+        style: "Chanson",
+        flag: "🇫🇷",
+        audio: "music/FRANCE.wav",
+        fact: "Chanson means 'song' in French - a lyrical style that blends poetry, storytelling, and melody."
+      },
+      {
+        country: "Ghana",
+        style: "Azonto",
+        flag: "🇬🇭",
+        audio: "music/GHANA.wav",
+        fact: "Azonto is a popular Ghanaian music and dance style known for expressive movements that tell stories through rhythm."
+      },
+      {
+        country: "Indonesia",
+        style: "Gamelan",
+        flag: "🇮🇩",
+        audio: "music/INDONESIA.wav",
+        fact: "Gamelan is an ensemble of gongs, drums, and metallophones that create layered, shimmering rhythms."
+      },
+      {
+        country: "Italy",
+        style: "Opera",
+        flag: "🇮🇹",
+        audio: "music/ITALY.wav",
+        fact: "Opera began in Italy around 1600 - combining singing, acting, and orchestral music into dramatic performances."
+      },
+      {
+        country: "Jamaica",
+        style: "Reggae",
+        flag: "🇯🇲",
+        audio: "music/JAMAICA.wav",
+        fact: "Reggae developed in Jamaica in the late 1960s - known for its offbeat rhythms and messages of unity and social change."
+      },
+      {
+        country: "Japan",
+        style: "Shakuhachi",
+        flag: "🇯🇵",
+        audio: "music/JAPAN.wav",
+        fact: "The shakuhachi is a traditional Japanese bamboo flute known for its soft, breathy sound often used in meditation music."
+      },
+      {
+        country: "Kenya",
+        style: "Benga",
+        flag: "🇰🇪",
+        audio: "music/KENYA.wav",
+        fact: "Benga music blends Luo traditional rhythms with electric guitar - a popular and energetic style in Kenya."
+      },
+      {
+        country: "Mexico",
+        style: "Mariachi",
+        flag: "🇲🇽",
+        audio: "music/Mexico.wav",
+        fact: "Mariachi music features guitars, trumpets, and violins - commonly played at celebrations across Mexico."
+      },
+      {
+        country: "Nepal",
+        style: "Sarangi",
+        flag: "🇳🇵",
+        audio: "music/NEPAL.wav",
+        fact: "The sarangi is a traditional Nepali string instrument played with a bow, known for its expressive, voice-like sound."
+      },
+      {
+        country: "Peru",
+        style: "Indigenous Flutes",
+        flag: "🇵🇪",
+        audio: "music/PERU.wav",
+        fact: "Peruvian Andean music features indigenous flutes like the panpipe, creating airy, mountain-inspired melodies."
+      },
+      {
+        country: "South Africa",
+        style: "Goema",
+        flag: "🇿🇦",
+        audio: "music/SOUTH AFRICA_1.2.wav",
+        fact: "Goema is a rhythmic music style from Cape Town, rooted in street parades and local cultural traditions."
+      },
+      {
+        country: "South Korea",
+        style: "K-pop",
+        flag: "🇰🇷",
+        audio: "music/SOUTH KOREA.wav",
+        fact: "K-pop blends pop, hip-hop, and dance - and has become a global music phenomenon."
+      },
+      {
+        country: "Spain",
+        style: "Flamenco",
+        flag: "🇪🇸",
+        audio: "music/SPAIN1.2.wav",
+        fact: "Flamenco combines singing, guitar, dancing, and rhythmic clapping - rooted in Andalusian culture."
+      },
+      {
+        country: "Sri Lanka",
+        style: "Sitar & Tabla",
+        flag: "🇱🇰",
+        audio: "music/SRI LANKA_1.1.wav",
+        fact: "Sri Lankan music often features instruments like the sitar and tabla, blending melody with intricate hand-played rhythms."
+      },
+      {
+        country: "Switzerland",
+        style: "Alphorn",
+        flag: "🇨🇭",
+        audio: "music/SWITZERLAND.wav",
+        fact: "The alphorn is a long wooden horn used in the Swiss Alps, producing deep, resonant tones that carry across mountains."
+      },
+      {
+        country: "United Kingdom",
+        style: "Rock & Pop",
+        flag: "🇬🇧",
+        audio: "music/ENGLAND.wav",
+        fact: "The UK has shaped modern music with artists like The Beatles, The Rolling Stones, Elton John, David Bowie, and Adele."
+      },
+      {
+        country: "U.S.A.",
+        style: "Jazz & Blues",
+        flag: "🇺🇸",
+        audio: "music/NEW ORLEANS.wav",
+        fact: "Jazz and blues began in the United States in the early 1900s - blending African and European musical traditions."
+      },
+      {
+        country: "Antarctica",
+        style: "No Native Style",
+        flag: "🇦🇶",
+        audio: "",
+        fact: "Antarctica has no indigenous music tradition - but researchers there have created and performed music in extreme conditions."
+      }
+    ];
+
+    const els = {
+      tabs: document.querySelectorAll(".tab-btn"),
+      playView: document.querySelector("#playView"),
+      factsView: document.querySelector("#factsView"),
+      stopStat: document.querySelector("#stopStat"),
+      scoreStat: document.querySelector("#scoreStat"),
+      streakStat: document.querySelector("#streakStat"),
+      questionArea: document.querySelector("#questionArea"),
+      resultPanel: document.querySelector("#resultPanel"),
+      resultScore: document.querySelector("#resultScore"),
+      resultCopy: document.querySelector("#resultCopy"),
+      againButton: document.querySelector("#againButton"),
+      resetButton: document.querySelector("#resetButton"),
+      roundKicker: document.querySelector("#roundKicker"),
+      mysteryTitle: document.querySelector("#mysteryTitle"),
+      mysteryPrompt: document.querySelector("#mysteryPrompt"),
+      coverBadge: document.querySelector("#coverBadge"),
+      playButton: document.querySelector("#playButton"),
+      audioWrap: document.querySelector("#audioWrap"),
+      wave: document.querySelector("#wave"),
+      progress: document.querySelector("#progress"),
+      progressFill: document.querySelector("#progressFill"),
+      currentTime: document.querySelector("#currentTime"),
+      duration: document.querySelector("#duration"),
+      answers: document.querySelector("#answers"),
+      feedback: document.querySelector("#feedback"),
+      feedbackImage: document.querySelector("#feedbackImage"),
+      feedbackFlag: document.querySelector("#feedbackFlag"),
+      feedbackTitle: document.querySelector("#feedbackTitle"),
+      feedbackStyle: document.querySelector("#feedbackStyle"),
+      feedbackCountry: document.querySelector("#feedbackCountry"),
+      feedbackBody: document.querySelector("#feedbackBody"),
+      nextButton: document.querySelector("#nextButton"),
+      track: document.querySelector("#track"),
+      factsCount: document.querySelector("#factsCount"),
+      factsGrid: document.querySelector("#factsGrid")
+    };
+
+    let rounds = [];
+    let currentRound = 0;
+    let score = 0;
+    let streak = 0;
+    let answered = false;
+    let missedThisRound = false;
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${mins}:${secs}`;
+    }
+
+    function getRound() {
+      return rounds[currentRound];
+    }
+
+    function updateStats() {
+      els.stopStat.textContent = `${Math.min(currentRound + 1, rounds.length)}/${rounds.length}`;
+      els.scoreStat.textContent = score.toString();
+      els.streakStat.textContent = streak.toString();
+    }
+
+    function pauseTrack() {
+      els.track.pause();
+      els.playButton.classList.remove("playing");
+      els.audioWrap.classList.remove("is-playing");
+      els.playButton.setAttribute("aria-label", "Play audio");
+    }
+
+    function resetAudio() {
+      pauseTrack();
+      els.track.currentTime = 0;
+      els.progressFill.style.width = "0%";
+      els.progress.setAttribute("aria-valuenow", "0");
+      els.currentTime.textContent = "0:00";
+      els.duration.textContent = "0:00";
+    }
+
+    function renderWave() {
+      const heights = [18, 26, 14, 31, 21, 34, 16, 28, 36, 20, 30, 15, 24, 33, 19, 27, 36, 22, 30, 16, 25, 34, 18, 29];
+      els.wave.innerHTML = heights.map((height, index) => {
+        const delay = `${(index % 8) * 0.06}s`;
+        return `<span class="bar" style="--h:${height}px;--delay:${delay}"></span>`;
+      }).join("");
+    }
+
+    function renderAnswers(correct) {
+      const choices = shuffle([
+        correct,
+        ...shuffle(FACTS.filter((item) => item.country !== correct.country)).slice(0, 3)
+      ]);
+
+      els.answers.innerHTML = choices.map((choice) => `
+        <button class="answer-btn" type="button" data-country="${choice.country}">
+          <span class="flag" aria-hidden="true">${choice.flag}</span>
+          <span class="answer-name">${choice.country}</span>
+        </button>
+      `).join("");
+    }
+
+    function renderRound() {
+      const round = getRound();
+      answered = false;
+      missedThisRound = false;
+      updateStats();
+      resetAudio();
+      els.resultPanel.hidden = true;
+      els.questionArea.hidden = false;
+      els.feedback.hidden = true;
+      els.nextButton.hidden = true;
+      els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish tour" : "Next stop";
+      els.roundKicker.textContent = `Stop ${currentRound + 1}`;
+      els.mysteryTitle.textContent = "What country is this music from?";
+      els.mysteryPrompt.textContent = "Play the music, then choose one of the four countries.";
+      els.coverBadge.textContent = "Mystery stop";
+      els.playButton.disabled = false;
+      els.track.src = round.audio;
+      renderAnswers(round);
+    }
+
+    function revealAnswer(choiceCountry) {
+      if (answered) return;
+
+      const round = getRound();
+      const isCorrect = choiceCountry === round.country;
+
+      if (!isCorrect) {
+        missedThisRound = true;
+        streak = 0;
+        updateStats();
+        els.mysteryPrompt.textContent = "Not that country. Try another option.";
+
+        const wrongButton = [...els.answers.querySelectorAll(".answer-btn")]
+          .find((button) => button.dataset.country === choiceCountry);
+        if (wrongButton) {
+          wrongButton.classList.add("wrong");
+          wrongButton.disabled = true;
+        }
+
+        return;
+      }
+
+      answered = true;
+      pauseTrack();
+
+      if (!missedThisRound) {
+        score += 1;
+        streak += 1;
+      }
+
+      updateStats();
+      els.mysteryTitle.textContent = `${round.flag} ${round.country}`;
+      els.mysteryPrompt.textContent = "Here is the country music fact.";
+      els.coverBadge.textContent = round.style;
+      els.feedbackImage.src = round.image || "art/styleimage_a.png";
+      els.feedbackImage.alt = `World tour picture for ${round.country}`;
+      els.feedbackFlag.textContent = round.flag;
+      els.feedbackTitle.textContent = "You found it";
+      els.feedbackStyle.textContent = round.style;
+      els.feedbackCountry.textContent = round.country;
+      els.feedbackBody.textContent = round.fact;
+      els.feedback.hidden = false;
+      els.nextButton.hidden = false;
+
+      els.answers.querySelectorAll(".answer-btn").forEach((button) => {
+        const country = button.dataset.country;
+        button.disabled = true;
+        if (country === round.country) button.classList.add("correct");
+      });
+    }
+
+    function showResults() {
+      pauseTrack();
+      els.questionArea.hidden = true;
+      els.resultPanel.hidden = false;
+      els.stopStat.textContent = `${rounds.length}/${rounds.length}`;
+      els.resultScore.textContent = `${score}/${rounds.length}`;
+      const percent = Math.round((score / rounds.length) * 100);
+      els.resultCopy.textContent = `World tour complete. You identified ${percent}% of the music stops on the first try.`;
+    }
+
+    function nextRound() {
+      if (currentRound >= rounds.length - 1) {
+        showResults();
+        return;
+      }
+
+      currentRound += 1;
+      renderRound();
+    }
+
+    function startGame() {
+      rounds = shuffle(FACTS.filter((item) => item.audio));
+      currentRound = 0;
+      score = 0;
+      streak = 0;
+      renderRound();
+    }
+
+    function renderFacts() {
+      els.factsCount.textContent = `${FACTS.length} final tour facts`;
+      els.factsGrid.innerHTML = FACTS.map((item) => `
+        <article class="fact-card">
+          <div class="fact-top">
+            <span class="flag" aria-hidden="true">${item.flag}</span>
+            <h2 class="fact-country">${item.country}</h2>
+          </div>
+          <span class="fact-style">${item.style}</span>
+          <p class="fact-text">${item.fact}</p>
+        </article>
+      `).join("");
+    }
+
+    function setView(viewName) {
+      const showFacts = viewName === "facts";
+      els.playView.classList.toggle("active", !showFacts);
+      els.factsView.classList.toggle("active", showFacts);
+      els.tabs.forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.view === viewName);
+      });
+    }
+
+    function seekAudio(clientX) {
+      if (!Number.isFinite(els.track.duration)) return;
+      const rect = els.progress.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      els.track.currentTime = ratio * els.track.duration;
+    }
+
+    els.tabs.forEach((tab) => {
+      tab.addEventListener("click", () => setView(tab.dataset.view));
+    });
+
+    els.playButton.addEventListener("click", async () => {
+      if (els.track.paused) {
+        try {
+          await els.track.play();
+          els.playButton.classList.add("playing");
+          els.audioWrap.classList.add("is-playing");
+          els.playButton.setAttribute("aria-label", "Pause audio");
+        } catch {
+          els.playButton.disabled = false;
+        }
+      } else {
+        pauseTrack();
+      }
+    });
+
+    els.track.addEventListener("loadedmetadata", () => {
+      els.duration.textContent = formatTime(els.track.duration);
+    });
+
+    els.track.addEventListener("timeupdate", () => {
+      const duration = els.track.duration || 0;
+      const ratio = duration ? (els.track.currentTime / duration) * 100 : 0;
+      els.progressFill.style.width = `${ratio}%`;
+      els.progress.setAttribute("aria-valuenow", Math.round(ratio).toString());
+      els.currentTime.textContent = formatTime(els.track.currentTime);
+      els.duration.textContent = formatTime(duration);
+    });
+
+    els.track.addEventListener("ended", pauseTrack);
+
+    els.progress.addEventListener("click", (event) => {
+      seekAudio(event.clientX);
+    });
+
+    els.progress.addEventListener("keydown", (event) => {
+      if (!Number.isFinite(els.track.duration)) return;
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        const step = event.key === "ArrowRight" ? 5 : -5;
+        els.track.currentTime = Math.min(els.track.duration, Math.max(0, els.track.currentTime + step));
+      }
+    });
+
+    els.answers.addEventListener("click", (event) => {
+      const button = event.target.closest(".answer-btn");
+      if (!button) return;
+      revealAnswer(button.dataset.country);
+    });
+
+    els.nextButton.addEventListener("click", nextRound);
+    els.againButton.addEventListener("click", startGame);
+    els.resetButton.addEventListener("click", () => {
+      startGame();
+      setView("play");
+    });
+
+    renderWave();
+    renderFacts();
+    startGame();
+  </script>
+</body>
+</html>
