@@ -133,6 +133,63 @@
       z-index: 1;
     }
 
+    .bg-style {
+      position: fixed;
+      height: auto;
+      z-index: 0;
+      pointer-events: none;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(49, 43, 86, 0.18));
+      animation: softFloat 6.2s ease-in-out infinite;
+    }
+
+    .bg-style.corner-left {
+      width: clamp(96px, 15vw, 190px);
+      opacity: 0.46;
+      left: clamp(-62px, -4vw, -18px);
+      bottom: clamp(18px, 7vh, 72px);
+    }
+
+    .bg-style.corner-right {
+      width: clamp(96px, 15vw, 190px);
+      opacity: 0.46;
+      right: clamp(-62px, -4vw, -18px);
+      top: clamp(150px, 23vh, 260px);
+      animation-delay: 0.9s;
+    }
+
+    .bg-style.top-left {
+      width: clamp(64px, 9vw, 118px);
+      opacity: 0.24;
+      left: clamp(14px, 4vw, 60px);
+      top: clamp(24px, 5vh, 58px);
+      animation-delay: 1.4s;
+    }
+
+    .bg-style.mid-left {
+      width: clamp(72px, 10vw, 132px);
+      opacity: 0.2;
+      left: clamp(4px, 2vw, 34px);
+      top: 46%;
+      animation-delay: 2.1s;
+    }
+
+    .bg-style.mid-right {
+      width: clamp(78px, 11vw, 148px);
+      opacity: 0.2;
+      right: clamp(4px, 2vw, 36px);
+      bottom: 18%;
+      animation-delay: 2.7s;
+    }
+
+    .bg-style.bottom-right {
+      width: clamp(58px, 8vw, 108px);
+      opacity: 0.22;
+      right: clamp(42px, 8vw, 120px);
+      bottom: clamp(10px, 3vh, 36px);
+      animation-delay: 3.2s;
+    }
+
     .masthead {
       display: grid;
       gap: 12px;
@@ -856,6 +913,28 @@
     }
 
     @media (max-width: 760px) {
+      .bg-style {
+        width: clamp(76px, 18vw, 112px);
+        opacity: 0.32;
+      }
+
+      .bg-style.corner-left {
+        left: -44px;
+        bottom: 18px;
+      }
+
+      .bg-style.corner-right {
+        right: -46px;
+        top: 118px;
+      }
+
+      .bg-style.top-left,
+      .bg-style.mid-left,
+      .bg-style.mid-right,
+      .bg-style.bottom-right {
+        opacity: 0.14;
+      }
+
       .listen-panel {
         grid-template-columns: 1fr;
       }
@@ -878,6 +957,27 @@
     }
 
     @media (max-width: 560px) {
+      .bg-style {
+        opacity: 0.2;
+      }
+
+      .bg-style.corner-left {
+        left: -58px;
+        bottom: 10px;
+      }
+
+      .bg-style.corner-right {
+        right: -58px;
+        top: 96px;
+      }
+
+      .bg-style.top-left,
+      .bg-style.mid-left,
+      .bg-style.mid-right,
+      .bg-style.bottom-right {
+        display: none;
+      }
+
       .app {
         width: min(100% - 16px, 920px);
         padding: 8px 0 22px;
@@ -1061,6 +1161,10 @@
     }
 
     @media (max-width: 380px) {
+      .bg-style {
+        display: none;
+      }
+
       .mystery-title {
         font-size: 27px;
       }
@@ -1099,6 +1203,13 @@
   </style>
 </head>
 <body>
+  <img class="bg-style corner-left" src="art/styleimage_a.png" alt="" aria-hidden="true">
+  <img class="bg-style corner-right" src="art/styleimage_a.png" alt="" aria-hidden="true">
+  <img class="bg-style top-left" src="art/styleimage_a.png" alt="" aria-hidden="true">
+  <img class="bg-style mid-left" src="art/styleimage_a.png" alt="" aria-hidden="true">
+  <img class="bg-style mid-right" src="art/styleimage_a.png" alt="" aria-hidden="true">
+  <img class="bg-style bottom-right" src="art/styleimage_a.png" alt="" aria-hidden="true">
+
   <main class="app">
     <header class="masthead">
       <div class="title-art-wrap">
@@ -1206,6 +1317,7 @@
         style: "Tango",
         flag: "🇦🇷",
         audio: "music/ARGENTINA DRUMS AND HORNS_1.2.wav",
+        image: "art/country_images/Juan Manuel Benitez.jpg",
         fact: "Tango was born in Buenos Aires in the late 1800s - a passionate dance and music style that tells stories through movement."
       },
       {
@@ -1213,6 +1325,7 @@
         style: "Didgeridoo",
         flag: "🇦🇺",
         audio: "",
+        image: "art/country_images/Dan O Brien.jpg",
         fact: "The didgeridoo is an ancient instrument developed by Indigenous Australians thousands of years ago - one of the world's oldest wind instruments."
       },
       {
@@ -1220,6 +1333,7 @@
         style: "Dancehall",
         flag: "🇧🇧",
         audio: "music/BARBADOS_2.wav",
+        image: "art/country_images/Kahlil Worrell.jpg",
         fact: "Dancehall is a high-energy Caribbean music style closely linked to Jamaica, known for its strong rhythms and dance culture enjoyed across islands like Barbados."
       },
       {
@@ -1227,6 +1341,7 @@
         style: "Chanson",
         flag: "🇫🇷",
         audio: "music/FRANCE.wav",
+        image: "art/country_images/Alexx Schroll.jpg",
         fact: "Chanson means 'song' in French - a lyrical style that blends poetry, storytelling, and melody."
       },
       {
@@ -1234,6 +1349,7 @@
         style: "Azonto",
         flag: "🇬🇭",
         audio: "music/GHANA.wav",
+        image: "art/country_images/Dery Korbieh.jpg",
         fact: "Azonto is a popular Ghanaian music and dance style known for expressive movements that tell stories through rhythm."
       },
       {
@@ -1241,6 +1357,7 @@
         style: "Gamelan",
         flag: "🇮🇩",
         audio: "music/INDONESIA.wav",
+        image: "art/country_images/Bima Susila.jpg",
         fact: "Gamelan is an ensemble of gongs, drums, and metallophones that create layered, shimmering rhythms."
       },
       {
@@ -1248,6 +1365,7 @@
         style: "Opera",
         flag: "🇮🇹",
         audio: "music/ITALY.wav",
+        image: "art/country_images/Etorre Sapienza.jpg",
         fact: "Opera began in Italy around 1600 - combining singing, acting, and orchestral music into dramatic performances."
       },
       {
@@ -1255,6 +1373,7 @@
         style: "Reggae",
         flag: "🇯🇲",
         audio: "music/JAMAICA.wav",
+        image: "art/country_images/Jelliss.jpg",
         fact: "Reggae developed in Jamaica in the late 1960s - known for its offbeat rhythms and messages of unity and social change."
       },
       {
@@ -1262,6 +1381,7 @@
         style: "Shakuhachi",
         flag: "🇯🇵",
         audio: "music/JAPAN.wav",
+        image: "art/country_images/Seimo Yamaguchi.jpg",
         fact: "The shakuhachi is a traditional Japanese bamboo flute known for its soft, breathy sound often used in meditation music."
       },
       {
@@ -1269,13 +1389,15 @@
         style: "Benga",
         flag: "🇰🇪",
         audio: "music/KENYA.wav",
+        image: "art/country_images/singld_22-page-00001.jpg",
         fact: "Benga music blends Luo traditional rhythms with electric guitar - a popular and energetic style in Kenya."
       },
       {
         country: "Mexico",
         style: "Mariachi",
         flag: "🇲🇽",
-        audio: "music/Mexico.wav",
+        audio: "music/MEXICO.wav",
+        image: "art/country_images/singld_23-page-00001.jpg",
         fact: "Mariachi music features guitars, trumpets, and violins - commonly played at celebrations across Mexico."
       },
       {
@@ -1283,6 +1405,7 @@
         style: "Sarangi",
         flag: "🇳🇵",
         audio: "music/NEPAL.wav",
+        image: "art/country_images/singld_24-page-00001.jpg",
         fact: "The sarangi is a traditional Nepali string instrument played with a bow, known for its expressive, voice-like sound."
       },
       {
@@ -1290,6 +1413,7 @@
         style: "Indigenous Flutes",
         flag: "🇵🇪",
         audio: "music/PERU.wav",
+        image: "art/country_images/singld_25-page-00001.jpg",
         fact: "Peruvian Andean music features indigenous flutes like the panpipe, creating airy, mountain-inspired melodies."
       },
       {
@@ -1297,6 +1421,7 @@
         style: "Goema",
         flag: "🇿🇦",
         audio: "music/SOUTH AFRICA_1.2.wav",
+        image: "art/country_images/Chris Murray.jpg",
         fact: "Goema is a rhythmic music style from Cape Town, rooted in street parades and local cultural traditions."
       },
       {
@@ -1304,6 +1429,7 @@
         style: "K-pop",
         flag: "🇰🇷",
         audio: "music/SOUTH KOREA.wav",
+        image: "art/country_images/Young illy.jpg",
         fact: "K-pop blends pop, hip-hop, and dance - and has become a global music phenomenon."
       },
       {
@@ -1311,6 +1437,7 @@
         style: "Flamenco",
         flag: "🇪🇸",
         audio: "music/SPAIN1.2.wav",
+        image: "art/country_images/Pablo Dominguez.jpg",
         fact: "Flamenco combines singing, guitar, dancing, and rhythmic clapping - rooted in Andalusian culture."
       },
       {
@@ -1318,6 +1445,7 @@
         style: "Sitar & Tabla",
         flag: "🇱🇰",
         audio: "music/SRI LANKA_1.1.wav",
+        image: "art/country_images/Mahesh Pathumkumara.jpg",
         fact: "Sri Lankan music often features instruments like the sitar and tabla, blending melody with intricate hand-played rhythms."
       },
       {
@@ -1325,6 +1453,7 @@
         style: "Alphorn",
         flag: "🇨🇭",
         audio: "music/SWITZERLAND.wav",
+        image: "art/country_images/Enrico Lenzin.jpg",
         fact: "The alphorn is a long wooden horn used in the Swiss Alps, producing deep, resonant tones that carry across mountains."
       },
       {
@@ -1332,6 +1461,7 @@
         style: "Rock & Pop",
         flag: "🇬🇧",
         audio: "music/ENGLAND.wav",
+        image: "art/country_images/Daniel Squires.jpg",
         fact: "The UK has shaped modern music with artists like The Beatles, The Rolling Stones, Elton John, David Bowie, and Adele."
       },
       {
@@ -1339,6 +1469,7 @@
         style: "Jazz & Blues",
         flag: "🇺🇸",
         audio: "music/NEW ORLEANS.wav",
+        image: "art/country_images/Isamael Muniz.jpg",
         fact: "Jazz and blues began in the United States in the early 1900s - blending African and European musical traditions."
       },
       {
@@ -1346,6 +1477,7 @@
         style: "No Native Style",
         flag: "🇦🇶",
         audio: "",
+        image: "art/country_images/Malgorzata Borkowska.jpg",
         fact: "Antarctica has no indigenous music tradition - but researchers there have created and performed music in extreme conditions."
       }
     ];
@@ -1476,6 +1608,7 @@
       els.coverBadge.textContent = "Mystery stop";
       els.playButton.disabled = false;
       els.track.src = round.audio;
+      els.track.load();
       renderAnswers(round);
     }
 
@@ -1600,6 +1733,7 @@
           els.audioWrap.classList.add("is-playing");
           els.playButton.setAttribute("aria-label", "Pause audio");
         } catch {
+          els.mysteryPrompt.textContent = "This music could not start. Try the play button again.";
           els.playButton.disabled = false;
         }
       } else {
@@ -1621,6 +1755,12 @@
     });
 
     els.track.addEventListener("ended", pauseTrack);
+
+    els.track.addEventListener("error", () => {
+      const round = getRound();
+      els.mysteryPrompt.textContent = `The music file for ${round.country} could not load.`;
+      pauseTrack();
+    });
 
     els.progress.addEventListener("click", (event) => {
       seekAudio(event.clientX);
