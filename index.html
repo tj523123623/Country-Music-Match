@@ -980,55 +980,71 @@
 
       .app {
         width: min(100% - 16px, 920px);
-        padding: 8px 0 22px;
+        padding: 6px 0 10px;
       }
 
       .masthead {
-        gap: 8px;
-        margin-bottom: 10px;
+        gap: 5px;
+        margin-bottom: 7px;
       }
 
       .title-art-wrap {
-        min-height: 78px;
+        height: 60px;
+        min-height: 0;
       }
 
       .title-art {
-        max-height: 112px;
+        width: min(100%, 240px);
+        height: 52px;
+        max-height: none;
       }
 
       .top-row {
         display: grid;
-        gap: 8px;
+        grid-template-columns: minmax(0, 1fr) 136px;
+        gap: 6px;
+        align-items: center;
       }
 
       .game-title {
-        font-size: 24px;
+        font-size: 18px;
+        line-height: 1.05;
       }
 
       .tabs {
         width: 100%;
+        gap: 3px;
+        padding: 3px;
       }
 
       .tab-btn {
-        min-height: 42px;
+        min-width: 0;
+        min-height: 34px;
+        padding: 6px 8px;
+        font-size: 12px;
       }
 
       .score-strip {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
+        margin-bottom: 7px;
       }
 
       .score-strip .stat:first-child {
-        grid-column: 1 / -1;
+        grid-column: auto;
       }
 
       .stat {
-        min-height: 48px;
-        padding: 7px 9px;
+        min-height: 38px;
+        padding: 5px 7px;
+      }
+
+      .stat-label {
+        font-size: 9px;
       }
 
       .stat-value {
-        font-size: 23px;
+        font-size: 19px;
       }
 
       .question-area,
@@ -1037,58 +1053,106 @@
       }
 
       .listen-panel {
-        padding: 10px;
-        gap: 10px;
+        grid-template-columns: 76px minmax(0, 1fr);
+        align-items: center;
+        padding: 7px;
+        gap: 7px;
       }
 
-      .cover,
+      .cover {
+        height: 82px;
+        min-height: 0;
+      }
+
       .cover img {
-        min-height: 126px;
+        height: 100%;
+        min-height: 0;
+        padding: 5px;
+      }
+
+      .cover-badge {
+        left: 5px;
+        bottom: 5px;
+        padding: 3px 5px;
+        font-size: 9px;
       }
 
       .listen-copy {
-        gap: 10px;
+        gap: 5px;
+      }
+
+      .round-kicker {
+        font-size: 10px;
       }
 
       .mystery-title {
-        font-size: 30px;
+        font-size: 21px;
+        line-height: 1;
       }
 
       .mystery-prompt {
-        font-size: 14px;
+        font-size: 11px;
+        line-height: 1.25;
       }
 
       .audio-row {
-        grid-template-columns: 52px 1fr;
-        gap: 10px;
+        grid-template-columns: 38px 1fr;
+        gap: 7px;
       }
 
       .play-btn {
-        width: 52px;
-        height: 52px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .play-icon {
+        margin-left: 3px;
+        border-top-width: 9px;
+        border-bottom-width: 9px;
+        border-left-width: 14px;
+      }
+
+      .audio-stack {
+        gap: 5px;
       }
 
       .wave {
-        height: 30px;
+        height: 18px;
         gap: 2px;
       }
 
+      .progress {
+        height: 6px;
+      }
+
+      .time-row {
+        display: none;
+      }
+
       .answers {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 0 10px 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        padding: 0 7px 7px;
       }
 
       .answer-btn {
-        min-height: 58px;
-        padding: 8px 10px;
+        min-height: 44px;
+        gap: 6px;
+        padding: 6px;
+        font-size: 12px;
       }
 
       .flag {
-        width: 38px;
-        min-width: 38px;
-        height: 38px;
-        font-size: 22px;
+        width: 29px;
+        min-width: 29px;
+        height: 29px;
+        font-size: 17px;
+      }
+
+      html.is-round-open,
+      body.is-play-view.is-round-open {
+        height: 100dvh;
+        overflow-y: hidden;
       }
 
       .feedback {
@@ -1166,27 +1230,51 @@
       }
 
       .mystery-title {
-        font-size: 27px;
+        font-size: 20px;
+      }
+
+      .listen-panel {
+        grid-template-columns: 70px minmax(0, 1fr);
+        gap: 6px;
+      }
+
+      .cover {
+        height: 76px;
       }
 
       .audio-row {
-        grid-template-columns: 48px 1fr;
+        grid-template-columns: 36px 1fr;
+        gap: 6px;
       }
 
       .play-btn {
-        width: 48px;
-        height: 48px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .wave {
+        height: 16px;
       }
 
       .answer-btn {
-        grid-template-columns: 34px 1fr;
+        grid-template-columns: 28px 1fr;
+        min-height: 42px;
+        gap: 5px;
+        padding: 5px;
+        font-size: 11px;
       }
 
       .flag {
-        width: 34px;
-        min-width: 34px;
-        height: 34px;
-        font-size: 20px;
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 560px) and (max-height: 520px) {
+      .title-art-wrap {
+        display: none;
       }
     }
 
@@ -1527,6 +1615,14 @@
     let answered = false;
     let missedThisRound = false;
 
+    function syncBodyMode() {
+      const playActive = els.playView.classList.contains("active");
+      const roundOpen = playActive && !els.questionArea.hidden && els.feedback.hidden && els.resultPanel.hidden;
+      document.body.classList.toggle("is-play-view", playActive);
+      document.body.classList.toggle("is-round-open", roundOpen);
+      document.documentElement.classList.toggle("is-round-open", roundOpen);
+    }
+
     function shuffle(items) {
       const copy = [...items];
       for (let i = copy.length - 1; i > 0; i -= 1) {
@@ -1610,6 +1706,7 @@
       els.track.src = round.audio;
       els.track.load();
       renderAnswers(round);
+      syncBodyMode();
     }
 
     function revealAnswer(choiceCountry) {
@@ -1631,6 +1728,7 @@
           wrongButton.disabled = true;
         }
 
+        syncBodyMode();
         return;
       }
 
@@ -1661,6 +1759,7 @@
         button.disabled = true;
         if (country === round.country) button.classList.add("correct");
       });
+      syncBodyMode();
     }
 
     function showResults() {
@@ -1671,6 +1770,7 @@
       els.resultScore.textContent = `${score}/${rounds.length}`;
       const percent = Math.round((score / rounds.length) * 100);
       els.resultCopy.textContent = `World tour complete. You identified ${percent}% of the music stops on the first try.`;
+      syncBodyMode();
     }
 
     function nextRound() {
@@ -1712,6 +1812,7 @@
       els.tabs.forEach((tab) => {
         tab.classList.toggle("active", tab.dataset.view === viewName);
       });
+      syncBodyMode();
     }
 
     function seekAudio(clientX) {
