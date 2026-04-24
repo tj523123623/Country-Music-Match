@@ -27,14 +27,19 @@
       box-sizing: border-box;
     }
 
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       margin: 0;
       background:
         linear-gradient(180deg, #fffdf7 0%, #f9fbff 44%, #fff9fb 100%);
       color: var(--ink);
       font-family: "Nunito", system-ui, sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100dvh;
     }
 
     button {
@@ -128,9 +133,13 @@
     .app {
       width: min(920px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 18px 0 32px;
+      padding: 14px 0;
+      height: 100dvh;
       position: relative;
       z-index: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
     .bg-style {
@@ -224,6 +233,23 @@
       flex-wrap: wrap;
     }
 
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-picture {
+      display: block;
+      height: 52px;
+      width: auto;
+      max-width: min(42vw, 240px);
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 6px 12px rgba(49, 43, 86, 0.12));
+    }
+
     .game-title {
       margin: 0;
       font-family: "Dekko", cursive;
@@ -270,7 +296,11 @@
     }
 
     .view.active {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
     }
 
     .score-strip {
@@ -278,6 +308,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       margin-bottom: 12px;
+      flex-shrink: 0;
     }
 
     .stat {
@@ -307,6 +338,7 @@
       line-height: 1.1;
     }
 
+    .boot-panel,
     .question-area,
     .result-panel {
       background: var(--panel);
@@ -315,6 +347,36 @@
       box-shadow: var(--shadow);
       overflow: hidden;
       animation: revealRise 0.32s ease-out;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .boot-panel {
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .boot-card {
+      flex: 1;
+      min-height: 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .boot-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
     }
 
     .listen-panel {
@@ -323,6 +385,7 @@
       gap: 16px;
       padding: 16px;
       align-items: stretch;
+      flex-shrink: 0;
     }
 
     .cover {
@@ -552,6 +615,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       padding: 0 16px 16px;
+      flex: 1;
+      min-height: 0;
     }
 
     .answer-btn {
@@ -561,7 +626,7 @@
       background: #fcfbff;
       color: var(--ink);
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto 1fr auto;
       gap: 10px;
       align-items: center;
       padding: 10px 12px;
@@ -635,6 +700,27 @@
       animation: wrongNudge 0.18s ease-in-out;
     }
 
+    .answer-status-dot {
+      width: 12px;
+      min-width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #d9d5e8;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px rgba(111, 87, 216, 0.12);
+      transition: background 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .answer-btn.correct .answer-status-dot {
+      background: var(--green);
+      box-shadow: 0 0 0 1px rgba(67, 160, 71, 0.18);
+    }
+
+    .answer-btn.wrong .answer-status-dot {
+      background: #f48fb1;
+      box-shadow: 0 0 0 1px rgba(240, 98, 146, 0.18);
+    }
+
     .flag {
       width: 42px;
       min-width: 42px;
@@ -660,8 +746,15 @@
       overflow: hidden;
       background: #fff;
       animation: revealRise 0.28s ease-out;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
 
+    .score-strip[hidden],
+    .boot-panel[hidden],
+    .question-area[hidden],
     .feedback[hidden],
     .result-panel[hidden],
     .round-actions[hidden],
@@ -676,6 +769,7 @@
       align-items: center;
       gap: 10px;
       padding: 0 16px 14px;
+      flex-shrink: 0;
     }
 
     .reveal-card {
@@ -684,6 +778,8 @@
       gap: 14px;
       padding: 14px;
       align-items: stretch;
+      flex: 1;
+      min-height: 0;
     }
 
     .reveal-media {
@@ -739,6 +835,19 @@
       font-family: "Dekko", cursive;
       font-size: 27px;
       line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feedback-title::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(67, 160, 71, 0.12);
+      flex-shrink: 0;
     }
 
     .feedback-style {
@@ -763,8 +872,10 @@
       color: #343044;
       font-size: 15px;
       line-height: 1.55;
+      overflow-y: auto;
     }
 
+    .start-btn,
     .next-btn,
     .try-again-btn,
     .again-btn,
@@ -776,6 +887,7 @@
       transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
     }
 
+    .start-btn,
     .next-btn {
       min-width: 154px;
       min-height: 46px;
@@ -783,6 +895,11 @@
       background: var(--gold);
       color: #3f2700;
       box-shadow: 0 7px 18px rgba(246, 183, 45, 0.3);
+    }
+
+    .start-btn {
+      justify-self: center;
+      min-width: 200px;
     }
 
     .try-again-btn {
@@ -794,6 +911,7 @@
       box-shadow: 0 7px 18px rgba(240, 98, 146, 0.28);
     }
 
+    .start-btn:hover,
     .next-btn:hover,
     .try-again-btn:hover,
     .again-btn:hover,
@@ -801,6 +919,7 @@
       transform: translateY(-1px);
     }
 
+    .start-btn:active,
     .next-btn:active,
     .try-again-btn:active,
     .again-btn:active,
@@ -811,6 +930,9 @@
     .result-panel {
       padding: 26px 18px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .result-score {
@@ -842,6 +964,7 @@
       gap: 12px;
       align-items: center;
       margin-bottom: 12px;
+      flex-shrink: 0;
     }
 
     .facts-count {
@@ -862,6 +985,10 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding-right: 4px;
     }
 
     .fact-card {
@@ -970,76 +1097,78 @@
 
     @media (max-width: 560px) {
       .bg-style {
-        opacity: 0.2;
-      }
-
-      .bg-style.corner-left {
-        left: -58px;
-        bottom: 10px;
-      }
-
-      .bg-style.corner-right {
-        right: -58px;
-        top: 96px;
-      }
-
-      .bg-style.top-left,
-      .bg-style.mid-left,
-      .bg-style.mid-right,
-      .bg-style.bottom-right {
         display: none;
       }
 
       .app {
         width: min(100% - 16px, 920px);
-        padding: 6px 0 10px;
+        padding: 4px 0 4px;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
       }
 
       .masthead {
-        gap: 5px;
-        margin-bottom: 7px;
+        margin-bottom: 4px;
       }
 
       .title-art-wrap {
-        height: 60px;
-        min-height: 0;
-      }
-
-      .title-art {
-        width: min(100%, 240px);
-        height: 52px;
-        max-height: none;
+        display: none;
       }
 
       .top-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 136px;
-        gap: 6px;
+        display: flex;
+        justify-content: space-between;
+        gap: 4px;
         align-items: center;
+        flex-wrap: nowrap;
+      }
+
+      #playView, #factsView {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+      #playView:not(.active), #factsView:not(.active) {
+        display: none;
+      }
+
+      .brand {
+        gap: 6px;
+        flex: 1;
+      }
+
+      .brand-picture {
+        height: 30px;
+        max-width: min(28vw, 96px);
       }
 
       .game-title {
-        font-size: 18px;
+        font-size: 17px;
         line-height: 1.05;
       }
 
       .tabs {
-        width: 100%;
+        width: auto;
         gap: 3px;
         padding: 3px;
+        flex-shrink: 0;
       }
 
       .tab-btn {
         min-width: 0;
         min-height: 34px;
-        padding: 6px 8px;
-        font-size: 12px;
+        padding: 6px 7px;
+        font-size: 11px;
       }
 
       .score-strip {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 6px;
-        margin-bottom: 7px;
+        gap: 4px;
+        margin-bottom: 4px;
+        flex-shrink: 0;
       }
 
       .score-strip .stat:first-child {
@@ -1047,8 +1176,8 @@
       }
 
       .stat {
-        min-height: 38px;
-        padding: 5px 7px;
+        min-height: 32px;
+        padding: 2px 4px;
       }
 
       .stat-label {
@@ -1059,16 +1188,38 @@
         font-size: 19px;
       }
 
+      .boot-panel,
       .question-area,
       .result-panel {
         border-radius: 8px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .boot-panel {
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .boot-card {
+        flex: 1;
+        padding: 8px;
+      }
+
+      .start-btn {
+        width: 100%;
+        min-width: 0;
       }
 
       .listen-panel {
-        grid-template-columns: 76px minmax(0, 1fr);
+        grid-template-columns: 60px minmax(0, 1fr);
         align-items: center;
-        padding: 7px;
-        gap: 7px;
+        padding: 4px 8px;
+        gap: 8px;
+        flex-shrink: 0;
       }
 
       .cover {
@@ -1134,27 +1285,37 @@
 
       .answers {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-        padding: 0 7px 7px;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+        padding: 0 4px 4px;
+        flex: 1;
+        min-height: 0;
       }
 
       .round-actions {
-        gap: 6px;
-        padding: 0 7px 7px;
+        gap: 4px;
+        padding: 0 4px 4px;
       }
 
       .round-actions .next-btn,
       .round-actions .try-again-btn {
         flex: 1;
         min-width: 0;
-        min-height: 42px;
+        min-height: 36px;
       }
 
       .answer-btn {
-        min-height: 44px;
-        gap: 6px;
-        padding: 6px;
-        font-size: 12px;
+        min-height: 0;
+        height: 100%;
+        gap: 4px;
+        padding: 4px;
+        font-size: 11px;
+      }
+
+      .answer-status-dot {
+        width: 10px;
+        min-width: 10px;
+        height: 10px;
       }
 
       .flag {
@@ -1171,17 +1332,30 @@
       }
 
       .feedback {
-        margin: 0 10px 10px;
+        margin: 0 4px 4px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
       }
 
       .reveal-card {
-        padding: 10px;
-        gap: 10px;
+        padding: 6px;
+        gap: 6px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
       }
 
-      .reveal-media,
+      .reveal-media {
+        flex: 1;
+        min-height: 0;
+      }
+
       .reveal-image {
-        min-height: 138px;
+        height: 100%;
+        min-height: 0;
       }
 
       .reveal-flag {
@@ -1205,7 +1379,9 @@
       }
 
       .feedback-body {
-        font-size: 14px;
+        font-size: 12px;
+        line-height: 1.3;
+        overflow-y: auto;
       }
 
       .result-panel {
@@ -1225,6 +1401,10 @@
       .facts-grid {
         grid-template-columns: 1fr;
         gap: 8px;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        padding-right: 2px;
       }
 
       .fact-card {
@@ -1234,12 +1414,17 @@
     }
 
     @media (max-width: 380px) {
-      .bg-style {
-        display: none;
-      }
-
       .mystery-title {
         font-size: 20px;
+      }
+
+      .brand-picture {
+        height: 26px;
+        max-width: min(26vw, 84px);
+      }
+
+      .game-title {
+        font-size: 15px;
       }
 
       .listen-panel {
@@ -1266,7 +1451,7 @@
       }
 
       .answer-btn {
-        grid-template-columns: 28px 1fr;
+        grid-template-columns: 28px 1fr auto;
         min-height: 42px;
         gap: 5px;
         padding: 5px;
@@ -1309,11 +1494,11 @@
 
   <main class="app">
     <header class="masthead">
-      <div class="title-art-wrap">
-        <img class="title-art" src="art/title.jpg" alt="Jaime Jangles World Tour">
-      </div>
       <div class="top-row">
-        <h1 class="game-title">Country Music Match</h1>
+        <div class="brand">
+          <img id="custom-picture" class="brand-picture" src="art/game_title.png" alt="">
+          <h1 class="game-title">Music Match</h1>
+        </div>
         <nav class="tabs" aria-label="Game sections">
           <button class="tab-btn active" type="button" data-view="play">Play</button>
           <button class="tab-btn" type="button" data-view="facts">Facts</button>
@@ -1321,8 +1506,8 @@
       </div>
     </header>
 
-    <section id="playView" class="view active" aria-label="Country music match game">
-      <div class="score-strip" aria-live="polite">
+    <section id="playView" class="view active" aria-label="Music Match game">
+      <div class="score-strip" aria-live="polite" hidden>
         <div class="stat">
           <span class="stat-label">Stop</span>
           <span id="stopStat" class="stat-value">1/1</span>
@@ -1337,7 +1522,14 @@
         </div>
       </div>
 
-      <section id="questionArea" class="question-area">
+      <section id="bootPanel" class="boot-panel">
+        <div class="boot-card">
+          <img class="boot-image" src="art/boot.jpg" alt="Jangles International Orchestra start screen">
+        </div>
+        <button id="startButton" class="start-btn" type="button">Start Game</button>
+      </section>
+
+      <section id="questionArea" class="question-area" hidden>
         <div class="listen-panel">
           <div class="cover">
             <img src="art/IMG_9443.jpg" alt="Jaime with the world tour globe">
@@ -1366,11 +1558,6 @@
           </div>
         </div>
 
-        <div id="roundActions" class="round-actions" hidden>
-          <button id="tryAgainButton" class="try-again-btn" type="button" hidden>Try Again</button>
-          <button id="nextButton" class="next-btn" type="button" hidden>Next Stop</button>
-        </div>
-
         <div id="answers" class="answers" aria-label="Country choices"></div>
 
         <section id="feedback" class="feedback" aria-live="polite" hidden>
@@ -1389,6 +1576,11 @@
             </div>
           </div>
         </section>
+
+        <div id="roundActions" class="round-actions" hidden>
+          <button id="tryAgainButton" class="try-again-btn" type="button" hidden>Try Again</button>
+          <button id="nextButton" class="next-btn" type="button" hidden>Next Country</button>
+        </div>
       </section>
 
       <section id="resultPanel" class="result-panel" hidden>
@@ -1400,7 +1592,7 @@
       <audio id="track" preload="metadata"></audio>
     </section>
 
-    <section id="factsView" class="view" aria-label="Country music facts">
+    <section id="factsView" class="view" aria-label="World tour facts">
       <div class="facts-toolbar">
         <span id="factsCount" class="facts-count"></span>
         <button id="resetButton" class="reset-btn" type="button">Reset game</button>
@@ -1456,7 +1648,7 @@
         style: "Gamelan",
         flag: "🇮🇩",
         audio: "music/INDONESIA.wav",
-        image: "art/country_images/Bima Susila.jpg",
+        image: "art/country_images/Ivan Maulana Malik Ibrahim.jpg",
         fact: "Gamelan is an ensemble of gongs, drums, and metallophones that create layered, shimmering rhythms."
       },
       {
@@ -1585,6 +1777,9 @@
       tabs: document.querySelectorAll(".tab-btn"),
       playView: document.querySelector("#playView"),
       factsView: document.querySelector("#factsView"),
+      scoreStrip: document.querySelector(".score-strip"),
+      bootPanel: document.querySelector("#bootPanel"),
+      startButton: document.querySelector("#startButton"),
       stopStat: document.querySelector("#stopStat"),
       scoreStat: document.querySelector("#scoreStat"),
       streakStat: document.querySelector("#streakStat"),
@@ -1626,11 +1821,11 @@
     let streak = 0;
     let answered = false;
     let missedThisRound = false;
+    let bootDismissed = false;
 
     function syncBodyMode() {
       const playActive = els.playView.classList.contains("active");
-      const actionOpen = !els.roundActions.hidden;
-      const roundOpen = playActive && !els.questionArea.hidden && els.feedback.hidden && els.resultPanel.hidden && !actionOpen;
+      const roundOpen = playActive && !els.questionArea.hidden && els.resultPanel.hidden;
       document.body.classList.toggle("is-play-view", playActive);
       document.body.classList.toggle("is-round-open", roundOpen);
       document.documentElement.classList.toggle("is-round-open", roundOpen);
@@ -1657,7 +1852,9 @@
     }
 
     function updateStats() {
-      els.stopStat.textContent = `${Math.min(currentRound + 1, rounds.length)}/${rounds.length}`;
+      const totalRounds = rounds.length;
+      const stopNumber = totalRounds ? Math.min(currentRound + 1, totalRounds) : 0;
+      els.stopStat.textContent = `${stopNumber}/${totalRounds}`;
       els.scoreStat.textContent = score.toString();
       els.streakStat.textContent = streak.toString();
     }
@@ -1666,6 +1863,30 @@
       els.tryAgainButton.hidden = !tryAgain;
       els.nextButton.hidden = !next;
       els.roundActions.hidden = !tryAgain && !next;
+    }
+
+    function showBootScreen() {
+      rounds = [];
+      currentRound = 0;
+      score = 0;
+      streak = 0;
+      answered = false;
+      missedThisRound = false;
+      updateStats();
+      resetAudio();
+      els.scoreStrip.hidden = true;
+      els.bootPanel.hidden = false;
+      els.questionArea.hidden = true;
+      els.resultPanel.hidden = true;
+      els.feedback.hidden = true;
+      setRoundActions();
+      syncBodyMode();
+    }
+
+    function beginGame() {
+      bootDismissed = true;
+      els.bootPanel.hidden = true;
+      startGame();
     }
 
     function pauseTrack() {
@@ -1702,6 +1923,7 @@
         <button class="answer-btn" type="button" data-country="${choice.country}">
           <span class="flag" aria-hidden="true">${choice.flag}</span>
           <span class="answer-name">${choice.country}</span>
+          <span class="answer-status-dot" aria-hidden="true"></span>
         </button>
       `).join("");
     }
@@ -1712,11 +1934,14 @@
       missedThisRound = false;
       updateStats();
       resetAudio();
+      els.scoreStrip.hidden = false;
+      els.bootPanel.hidden = true;
       els.resultPanel.hidden = true;
       els.questionArea.hidden = false;
+      els.answers.hidden = false;
       els.feedback.hidden = true;
       setRoundActions();
-      els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish Tour" : "Next Stop";
+      els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish Tour" : "Next Country";
       els.roundKicker.textContent = `Stop ${currentRound + 1}`;
       els.mysteryTitle.textContent = "What country is this music from?";
       els.mysteryPrompt.textContent = "Play the music, then choose one of the four countries.";
@@ -1750,10 +1975,7 @@
           button.disabled = true;
         });
         setRoundActions({ tryAgain: true });
-        requestAnimationFrame(() => {
-          els.roundActions.scrollIntoView({ block: "nearest" });
-          els.tryAgainButton.focus({ preventScroll: true });
-        });
+        els.tryAgainButton.focus({ preventScroll: true });
         syncBodyMode();
         return;
       }
@@ -1768,26 +1990,18 @@
 
       updateStats();
       els.mysteryTitle.textContent = `${round.flag} ${round.country}`;
-      els.mysteryPrompt.textContent = "Here is the country music fact.";
+      els.mysteryPrompt.textContent = "";
+      els.answers.hidden = true;
       els.feedbackImage.src = round.image || "art/styleimage_a.png";
       els.feedbackImage.alt = `World tour picture for ${round.country}`;
       els.feedbackFlag.textContent = round.flag;
-      els.feedbackTitle.textContent = "You found it";
+      els.feedbackTitle.textContent = "Correct";
       els.feedbackStyle.textContent = round.style;
       els.feedbackCountry.textContent = round.country;
       els.feedbackBody.textContent = round.fact;
       els.feedback.hidden = false;
       setRoundActions({ next: true });
-
-      els.answers.querySelectorAll(".answer-btn").forEach((button) => {
-        const country = button.dataset.country;
-        button.disabled = true;
-        if (country === round.country) button.classList.add("correct");
-      });
-      requestAnimationFrame(() => {
-        els.roundActions.scrollIntoView({ block: "nearest" });
-        els.nextButton.focus({ preventScroll: true });
-      });
+      els.nextButton.focus({ preventScroll: true });
       syncBodyMode();
     }
 
@@ -1926,17 +2140,28 @@
       revealAnswer(button.dataset.country);
     });
 
+    els.startButton.addEventListener("click", beginGame);
     els.nextButton.addEventListener("click", nextRound);
     els.tryAgainButton.addEventListener("click", tryAgain);
-    els.againButton.addEventListener("click", startGame);
+    els.againButton.addEventListener("click", () => {
+      if (bootDismissed) {
+        startGame();
+        return;
+      }
+      showBootScreen();
+    });
     els.resetButton.addEventListener("click", () => {
-      startGame();
+      if (bootDismissed) {
+        startGame();
+      } else {
+        showBootScreen();
+      }
       setView("play");
     });
 
     renderWave();
     renderFacts();
-    startGame();
+    showBootScreen();
   </script>
 </body>
 </html>
