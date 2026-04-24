@@ -226,26 +226,35 @@
     }
 
     .top-row {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: minmax(92px, 1fr) minmax(220px, 390px) minmax(136px, 1fr);
       gap: 12px;
       align-items: center;
-      flex-wrap: wrap;
     }
 
     .brand {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       min-width: 0;
     }
 
+    .header-world-tour {
+      justify-self: start;
+      width: 58px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 6px 12px rgba(49, 43, 86, 0.12));
+    }
+
     .brand-picture {
       display: block;
-      height: 52px;
-      width: auto;
-      max-width: min(42vw, 240px);
+      width: 100%;
+      height: 58px;
+      max-width: min(42vw, 390px);
       object-fit: contain;
+      object-position: center;
       flex-shrink: 0;
       filter: drop-shadow(0 6px 12px rgba(49, 43, 86, 0.12));
     }
@@ -259,6 +268,7 @@
     }
 
     .tabs {
+      justify-self: end;
       display: inline-grid;
       grid-template-columns: 1fr 1fr;
       gap: 4px;
@@ -307,8 +317,46 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       flex-shrink: 0;
+    }
+
+    .tour-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 0 0 10px;
+      padding: 0 8px;
+      flex-shrink: 0;
+    }
+
+    .tour-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid #fff;
+      background: #d9d5e8;
+      box-shadow: 0 0 0 1px rgba(111, 87, 216, 0.14);
+      transition: width 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .tour-dot.complete {
+      background: var(--aqua);
+      box-shadow: 0 0 0 1px rgba(31, 184, 178, 0.18);
+    }
+
+    .tour-dot.current {
+      width: 18px;
+      background: var(--gold);
+      box-shadow: 0 0 0 2px rgba(246, 183, 45, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .tour-dot.complete.current {
+      background: var(--green);
+      box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.18);
     }
 
     .stat {
@@ -358,6 +406,31 @@
       gap: 14px;
     }
 
+    .boot-title-lockup {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 86px;
+      gap: 16px;
+      align-items: center;
+      flex-shrink: 0;
+      padding: 0 4px;
+    }
+
+    .boot-jaime-title {
+      width: 100%;
+      height: 68px;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
+    }
+
+    .boot-world-title {
+      width: 86px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
+    }
+
     .boot-card {
       flex: 1;
       min-height: 0;
@@ -377,6 +450,11 @@
       object-fit: contain;
       object-position: center;
       display: block;
+    }
+
+    .question-area {
+      display: flex;
+      flex-direction: column;
     }
 
     .listen-panel {
@@ -727,13 +805,24 @@
       height: 42px;
       display: grid;
       place-items: center;
+      padding: 5px;
       border-radius: 8px;
       background: #fff;
       border: 1px solid #ece8f4;
       overflow: hidden;
+      font-size: 24px;
+      line-height: 1;
     }
 
-    .flag::before {
+    .flag-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .flag:empty::before {
       content: "";
       width: 18px;
       height: 18px;
@@ -766,6 +855,8 @@
     }
 
     .score-strip[hidden],
+    .tour-dots[hidden],
+    .answers[hidden],
     .boot-panel[hidden],
     .question-area[hidden],
     .feedback[hidden],
@@ -826,9 +917,12 @@
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #ece8f4;
       box-shadow: 0 4px 12px rgba(49, 43, 86, 0.14);
+      padding: 6px;
+      font-size: 27px;
+      line-height: 1;
     }
 
-    .reveal-flag::before {
+    .reveal-flag:empty::before {
       content: "";
       width: 24px;
       height: 24px;
@@ -891,6 +985,17 @@
       font-size: 18px;
       line-height: 1.2;
       font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .inline-flag {
+      width: 30px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
     }
 
     .feedback-body {
@@ -1098,6 +1203,30 @@
         opacity: 0.14;
       }
 
+      .top-row {
+        grid-template-columns: minmax(72px, 1fr) minmax(190px, 330px) minmax(120px, 1fr);
+      }
+
+      .header-world-tour {
+        width: 50px;
+      }
+
+      .brand-picture {
+        max-width: min(52vw, 330px);
+      }
+
+      .boot-title-lockup {
+        grid-template-columns: minmax(0, 1fr) 72px;
+      }
+
+      .boot-jaime-title {
+        height: 56px;
+      }
+
+      .boot-world-title {
+        width: 72px;
+      }
+
       .listen-panel {
         grid-template-columns: 1fr;
       }
@@ -1142,11 +1271,14 @@
       }
 
       .top-row {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: minmax(40px, 1fr) minmax(122px, 1.35fr) minmax(84px, 1fr);
         gap: 4px;
         align-items: center;
-        flex-wrap: nowrap;
+      }
+
+      .header-world-tour {
+        width: 36px;
       }
 
       #playView, #factsView {
@@ -1162,12 +1294,12 @@
 
       .brand {
         gap: 6px;
-        flex: 1;
+        min-width: 0;
       }
 
       .brand-picture {
         height: 30px;
-        max-width: min(28vw, 96px);
+        max-width: 100%;
       }
 
       .game-title {
@@ -1194,6 +1326,21 @@
         gap: 4px;
         margin-bottom: 4px;
         flex-shrink: 0;
+      }
+
+      .tour-dots {
+        gap: 4px;
+        margin-bottom: 4px;
+        padding: 0 2px;
+      }
+
+      .tour-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .tour-dot.current {
+        width: 14px;
       }
 
       .score-strip .stat:first-child {
@@ -1227,6 +1374,20 @@
       .boot-panel {
         padding: 10px;
         gap: 10px;
+      }
+
+      .boot-title-lockup {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 8px;
+        padding: 0;
+      }
+
+      .boot-jaime-title {
+        height: 40px;
+      }
+
+      .boot-world-title {
+        width: 54px;
       }
 
       .boot-card {
@@ -1445,7 +1606,11 @@
 
       .brand-picture {
         height: 26px;
-        max-width: min(26vw, 84px);
+        max-width: 100%;
+      }
+
+      .header-world-tour {
+        width: 32px;
       }
 
       .game-title {
@@ -1520,9 +1685,10 @@
   <main class="app">
     <header class="masthead">
       <div class="top-row">
+        <img class="header-world-tour" src="art/game_title.png" alt="" aria-hidden="true">
         <div class="brand">
-          <img id="custom-picture" class="brand-picture" src="art/game_title.png" alt="">
-          <h1 class="game-title">Music Match</h1>
+          <img id="custom-picture" class="brand-picture" src="art/title.png" alt="Jaime Jangles">
+          <h1 class="game-title sr-only">Jaime Jangles World Tour Music Match</h1>
         </div>
         <nav class="tabs" aria-label="Game sections">
           <button class="tab-btn active" type="button" data-view="play">Play</button>
@@ -1546,8 +1712,13 @@
           <span id="streakStat" class="stat-value">0</span>
         </div>
       </div>
+      <div id="tourDots" class="tour-dots" role="list" aria-label="Tour progress" hidden></div>
 
       <section id="bootPanel" class="boot-panel">
+        <div class="boot-title-lockup">
+          <img class="boot-jaime-title" src="art/title.png" alt="Jaime Jangles">
+          <img class="boot-world-title" src="art/game_title.png" alt="The World Tour">
+        </div>
         <div class="boot-card">
           <img class="boot-image" src="art/boot.jpg" alt="Jangles International Orchestra start screen">
         </div>
@@ -1604,7 +1775,7 @@
 
         <div id="roundActions" class="round-actions" hidden>
           <button id="tryAgainButton" class="try-again-btn" type="button" hidden>Try Again</button>
-          <button id="nextButton" class="next-btn" type="button" hidden>Next Country</button>
+          <button id="nextButton" class="next-btn" type="button" hidden>Next Stop</button>
         </div>
       </section>
 
@@ -1803,6 +1974,7 @@
       playView: document.querySelector("#playView"),
       factsView: document.querySelector("#factsView"),
       scoreStrip: document.querySelector(".score-strip"),
+      tourDots: document.querySelector("#tourDots"),
       bootPanel: document.querySelector("#bootPanel"),
       startButton: document.querySelector("#startButton"),
       stopStat: document.querySelector("#stopStat"),
@@ -1872,8 +2044,44 @@
       return `${mins}:${secs}`;
     }
 
+    function flagCodeFromEmoji(flag) {
+      const letters = [...flag].map((char) => char.codePointAt(0) - 0x1f1e6 + 97);
+      if (letters.some((code) => code < 97 || code > 122)) return "";
+      return String.fromCharCode(...letters);
+    }
+
+    function flagImageMarkup(item) {
+      const code = flagCodeFromEmoji(item.flag);
+      if (!code) return item.flag || "";
+      return `<img class="flag-img" src="https://flagcdn.com/w80/${code}.png" srcset="https://flagcdn.com/w160/${code}.png 2x" alt="" decoding="async" draggable="false">`;
+    }
+
+    function inlineFlagMarkup(item) {
+      return `<span class="inline-flag" aria-hidden="true">${flagImageMarkup(item)}</span>`;
+    }
+
     function getRound() {
       return rounds[currentRound];
+    }
+
+    function renderTourDots() {
+      if (!rounds.length) {
+        els.tourDots.hidden = true;
+        els.tourDots.innerHTML = "";
+        return;
+      }
+
+      els.tourDots.hidden = false;
+      els.tourDots.innerHTML = rounds.map((round, index) => {
+        const isCurrent = index === currentRound;
+        const isComplete = index < currentRound || (isCurrent && answered);
+        const classes = ["tour-dot"];
+        if (isComplete) classes.push("complete");
+        if (isCurrent) classes.push("current");
+        const status = isCurrent ? "current stop" : isComplete ? "complete" : "coming up";
+        const label = `Stop ${index + 1}: ${round.country}, ${status}`;
+        return `<span class="${classes.join(" ")}" role="listitem" aria-label="${label}" title="${label}"></span>`;
+      }).join("");
     }
 
     function updateStats() {
@@ -1882,6 +2090,7 @@
       els.stopStat.textContent = `${stopNumber}/${totalRounds}`;
       els.scoreStat.textContent = score.toString();
       els.streakStat.textContent = streak.toString();
+      renderTourDots();
     }
 
     function setRoundActions({ tryAgain = false, next = false } = {}) {
@@ -1946,7 +2155,7 @@
 
       els.answers.innerHTML = choices.map((choice) => `
         <button class="answer-btn" type="button" data-country="${choice.country}">
-          <span class="flag" aria-hidden="true"></span>
+          <span class="flag" aria-hidden="true">${flagImageMarkup(choice)}</span>
           <span class="answer-name">${choice.country}</span>
           <span class="answer-status-dot" aria-hidden="true"></span>
         </button>
@@ -1966,7 +2175,7 @@
       els.answers.hidden = false;
       els.feedback.hidden = true;
       setRoundActions();
-      els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish Tour" : "Next Country";
+      els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish Tour" : "Next Stop";
       els.roundKicker.textContent = `Stop ${currentRound + 1}`;
       els.mysteryTitle.textContent = "What country is this music from?";
       els.mysteryPrompt.textContent = "Play the music, then choose one of the four countries.";
@@ -2019,12 +2228,13 @@
       els.answers.hidden = true;
       els.feedbackImage.src = round.image || "art/styleimage_a.png";
       els.feedbackImage.alt = `World tour picture for ${round.country}`;
-      els.feedbackFlag.textContent = "";
+      els.feedbackFlag.innerHTML = flagImageMarkup(round);
       els.feedbackTitle.textContent = "Correct";
       els.feedbackStyle.textContent = round.style;
-      els.feedbackCountry.textContent = round.country;
+      els.feedbackCountry.innerHTML = `${inlineFlagMarkup(round)}<span>${round.country}</span>`;
       els.feedbackBody.textContent = round.fact;
       els.feedback.hidden = false;
+      renderTourDots();
       setRoundActions({ next: true });
       els.nextButton.focus({ preventScroll: true });
       syncBodyMode();
@@ -2080,7 +2290,7 @@
       els.factsGrid.innerHTML = FACTS.map((item) => `
         <article class="fact-card">
           <div class="fact-top">
-            <span class="flag" aria-hidden="true"></span>
+            <span class="flag" aria-hidden="true">${flagImageMarkup(item)}</span>
             <h2 class="fact-country">${item.country}</h2>
           </div>
           <span class="fact-style">${item.style}</span>
