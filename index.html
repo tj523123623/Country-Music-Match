@@ -730,7 +730,20 @@
       border-radius: 8px;
       background: #fff;
       border: 1px solid #ece8f4;
-      font-size: 24px;
+      overflow: hidden;
+    }
+
+    .flag::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #fff 0 16%, transparent 17%),
+        linear-gradient(135deg, var(--aqua), var(--violet));
+      box-shadow:
+        -7px -5px 0 -3px rgba(240, 98, 146, 0.95),
+        7px 6px 0 -3px rgba(246, 183, 45, 0.95);
     }
 
     .answer-name {
@@ -812,8 +825,20 @@
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #ece8f4;
-      font-size: 27px;
       box-shadow: 0 4px 12px rgba(49, 43, 86, 0.14);
+    }
+
+    .reveal-flag::before {
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 35%, #fff 0 16%, transparent 17%),
+        linear-gradient(135deg, var(--pink), var(--gold));
+      box-shadow:
+        -9px -6px 0 -4px rgba(31, 184, 178, 0.9),
+        9px 7px 0 -4px rgba(111, 87, 216, 0.9);
     }
 
     .reveal-info {
@@ -1921,7 +1946,7 @@
 
       els.answers.innerHTML = choices.map((choice) => `
         <button class="answer-btn" type="button" data-country="${choice.country}">
-          <span class="flag" aria-hidden="true">${choice.flag}</span>
+          <span class="flag" aria-hidden="true"></span>
           <span class="answer-name">${choice.country}</span>
           <span class="answer-status-dot" aria-hidden="true"></span>
         </button>
@@ -1989,12 +2014,12 @@
       }
 
       updateStats();
-      els.mysteryTitle.textContent = `${round.flag} ${round.country}`;
+      els.mysteryTitle.textContent = round.country;
       els.mysteryPrompt.textContent = "";
       els.answers.hidden = true;
       els.feedbackImage.src = round.image || "art/styleimage_a.png";
       els.feedbackImage.alt = `World tour picture for ${round.country}`;
-      els.feedbackFlag.textContent = round.flag;
+      els.feedbackFlag.textContent = "";
       els.feedbackTitle.textContent = "Correct";
       els.feedbackStyle.textContent = round.style;
       els.feedbackCountry.textContent = round.country;
@@ -2055,7 +2080,7 @@
       els.factsGrid.innerHTML = FACTS.map((item) => `
         <article class="fact-card">
           <div class="fact-top">
-            <span class="flag" aria-hidden="true">${item.flag}</span>
+            <span class="flag" aria-hidden="true"></span>
             <h2 class="fact-country">${item.country}</h2>
           </div>
           <span class="fact-style">${item.style}</span>
