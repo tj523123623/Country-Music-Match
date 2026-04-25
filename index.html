@@ -691,6 +691,7 @@
     .answers {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
       gap: 10px;
       padding: 0 16px 16px;
       flex: 1;
@@ -715,6 +716,7 @@
       transition: transform 0.14s ease, border 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
       position: relative;
       overflow: hidden;
+      height: 100%;
       animation: choiceEnter 0.28s ease-out both;
     }
 
@@ -776,6 +778,11 @@
       background: #fff0f6;
       color: #6a2444;
       animation: wrongNudge 0.18s ease-in-out;
+    }
+
+    .answers.is-reviewing .answer-btn {
+      animation: none;
+      transform: none;
     }
 
     .answer-status-dot {
@@ -847,7 +854,6 @@
       border: 1px solid var(--line);
       overflow: hidden;
       background: #fff;
-      animation: revealRise 0.28s ease-out;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -878,9 +884,9 @@
 
     .reveal-card {
       display: grid;
-      grid-template-columns: 184px 1fr;
-      gap: 14px;
-      padding: 14px;
+      grid-template-columns: minmax(260px, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
       align-items: stretch;
       flex: 1;
       min-height: 0;
@@ -888,37 +894,36 @@
 
     .reveal-media {
       position: relative;
-      min-height: 154px;
+      min-height: 276px;
       border-radius: var(--radius);
       overflow: hidden;
-      background: #f0f7f6;
+      background: #201a2b;
       border: 1px solid var(--line);
     }
 
     .reveal-image {
       width: 100%;
       height: 100%;
-      min-height: 154px;
-      object-fit: contain;
-      padding: 8px;
+      min-height: 276px;
+      object-fit: cover;
+      object-position: center;
       display: block;
-      animation: softFloat 4.6s ease-in-out infinite;
     }
 
     .reveal-flag {
       position: absolute;
-      right: 8px;
-      bottom: 8px;
-      width: 48px;
-      height: 48px;
+      right: 12px;
+      bottom: 12px;
+      width: 64px;
+      height: 64px;
       display: grid;
       place-items: center;
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #ece8f4;
       box-shadow: 0 4px 12px rgba(49, 43, 86, 0.14);
-      padding: 6px;
-      font-size: 27px;
+      padding: 8px;
+      font-size: 34px;
       line-height: 1;
     }
 
@@ -939,7 +944,7 @@
       min-width: 0;
       display: grid;
       align-content: center;
-      gap: 9px;
+      gap: 12px;
     }
 
     .feedback-head {
@@ -952,7 +957,7 @@
     .feedback-title {
       margin: 0;
       font-family: "Dekko", cursive;
-      font-size: 27px;
+      font-size: 25px;
       line-height: 1;
       display: flex;
       align-items: center;
@@ -982,17 +987,19 @@
     .feedback-country {
       margin: 0;
       color: var(--ink);
-      font-size: 18px;
-      line-height: 1.2;
+      font-family: "Dekko", cursive;
+      font-size: 42px;
+      line-height: 0.95;
       font-weight: 900;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      overflow-wrap: anywhere;
     }
 
     .inline-flag {
-      width: 30px;
-      height: 22px;
+      width: 48px;
+      height: 34px;
       display: grid;
       place-items: center;
       flex-shrink: 0;
@@ -1241,7 +1248,20 @@
       }
 
       .reveal-media {
-        min-height: 170px;
+        min-height: 220px;
+      }
+
+      .reveal-image {
+        min-height: 220px;
+      }
+
+      .feedback-country {
+        font-size: 34px;
+      }
+
+      .inline-flag {
+        width: 40px;
+        height: 28px;
       }
 
       .facts-grid {
@@ -1550,13 +1570,23 @@
         font-size: 24px;
       }
 
+      .feedback-country {
+        font-size: 28px;
+        gap: 7px;
+      }
+
+      .inline-flag {
+        width: 32px;
+        height: 23px;
+      }
+
       .feedback-head {
         display: grid;
         gap: 6px;
       }
 
       .feedback-title {
-        font-size: 25px;
+        font-size: 22px;
       }
 
       .feedback-style {
@@ -1646,6 +1676,10 @@
         gap: 5px;
         padding: 5px;
         font-size: 11px;
+      }
+
+      .feedback-country {
+        font-size: 24px;
       }
 
       .flag {
@@ -1763,11 +1797,11 @@
               <span id="feedbackFlag" class="reveal-flag" aria-hidden="true"></span>
             </div>
             <div class="reveal-info">
+              <p id="feedbackCountry" class="feedback-country"></p>
               <div class="feedback-head">
                 <h3 id="feedbackTitle" class="feedback-title">Correct</h3>
                 <span id="feedbackStyle" class="feedback-style">Style</span>
               </div>
-              <p id="feedbackCountry" class="feedback-country"></p>
               <div id="feedbackBody" class="feedback-body"></div>
             </div>
           </div>
@@ -1969,6 +2003,8 @@
       }
     ];
 
+    const FEATURED_OPTION_COUNTRIES = ["Australia"];
+
     const els = {
       tabs: document.querySelectorAll(".tab-btn"),
       playView: document.querySelector("#playView"),
@@ -2019,6 +2055,7 @@
     let answered = false;
     let missedThisRound = false;
     let bootDismissed = false;
+    let pendingFeaturedChoices = [];
 
     function syncBodyMode() {
       const playActive = els.playView.classList.contains("active");
@@ -2106,6 +2143,7 @@
       streak = 0;
       answered = false;
       missedThisRound = false;
+      pendingFeaturedChoices = [];
       updateStats();
       resetAudio();
       els.scoreStrip.hidden = true;
@@ -2147,11 +2185,30 @@
       }).join("");
     }
 
+    function getAnswerChoices(correct) {
+      const choices = [correct];
+      const addChoice = (item) => {
+        if (!item || item.country === correct.country) return;
+        if (choices.some((choice) => choice.country === item.country)) return;
+        choices.push(item);
+      };
+
+      pendingFeaturedChoices
+        .map((country) => FACTS.find((item) => item.country === country))
+        .forEach(addChoice);
+
+      shuffle(FACTS.filter((item) => item.country !== correct.country)).forEach((item) => {
+        if (choices.length < 4) addChoice(item);
+      });
+
+      const shownCountries = new Set(choices.map((item) => item.country));
+      pendingFeaturedChoices = pendingFeaturedChoices.filter((country) => !shownCountries.has(country));
+
+      return shuffle(choices.slice(0, 4));
+    }
+
     function renderAnswers(correct) {
-      const choices = shuffle([
-        correct,
-        ...shuffle(FACTS.filter((item) => item.country !== correct.country)).slice(0, 3)
-      ]);
+      const choices = getAnswerChoices(correct);
 
       els.answers.innerHTML = choices.map((choice) => `
         <button class="answer-btn" type="button" data-country="${choice.country}">
@@ -2173,6 +2230,7 @@
       els.resultPanel.hidden = true;
       els.questionArea.hidden = false;
       els.answers.hidden = false;
+      els.answers.classList.remove("is-reviewing");
       els.feedback.hidden = true;
       setRoundActions();
       els.nextButton.textContent = currentRound === rounds.length - 1 ? "Finish Tour" : "Next Stop";
@@ -2208,6 +2266,7 @@
         els.answers.querySelectorAll(".answer-btn").forEach((button) => {
           button.disabled = true;
         });
+        els.answers.classList.add("is-reviewing");
         setRoundActions({ tryAgain: true });
         els.tryAgainButton.focus({ preventScroll: true });
         syncBodyMode();
@@ -2279,6 +2338,7 @@
 
     function startGame() {
       rounds = shuffle(FACTS.filter((item) => item.audio));
+      pendingFeaturedChoices = [...FEATURED_OPTION_COUNTRIES];
       currentRound = 0;
       score = 0;
       streak = 0;
