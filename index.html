@@ -227,12 +227,13 @@
 
     .top-row {
       display: grid;
-      grid-template-columns: minmax(92px, 1fr) minmax(220px, 390px) minmax(136px, 1fr);
+      grid-template-columns: minmax(92px, 1fr) minmax(240px, 460px) minmax(136px, 1fr);
       gap: 12px;
       align-items: center;
     }
 
     .brand {
+      grid-column: 2;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -240,19 +241,11 @@
       min-width: 0;
     }
 
-    .header-world-tour {
-      justify-self: start;
-      width: 58px;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 6px 12px rgba(49, 43, 86, 0.12));
-    }
-
     .brand-picture {
       display: block;
       width: 100%;
-      height: 58px;
-      max-width: min(42vw, 390px);
+      height: 72px;
+      max-width: min(48vw, 460px);
       object-fit: contain;
       object-position: center;
       flex-shrink: 0;
@@ -268,6 +261,7 @@
     }
 
     .tabs {
+      grid-column: 3;
       justify-self: end;
       display: inline-grid;
       grid-template-columns: 1fr 1fr;
@@ -408,24 +402,14 @@
 
     .boot-title-lockup {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 86px;
-      gap: 16px;
-      align-items: center;
+      place-items: center;
       flex-shrink: 0;
       padding: 0 4px;
-    }
-
-    .boot-jaime-title {
-      width: 100%;
-      height: 68px;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
+      min-height: 90px;
     }
 
     .boot-world-title {
-      width: 86px;
+      width: 96px;
       height: auto;
       display: block;
       filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
@@ -910,36 +894,6 @@
       display: block;
     }
 
-    .reveal-flag {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      width: 64px;
-      height: 64px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid #ece8f4;
-      box-shadow: 0 4px 12px rgba(49, 43, 86, 0.14);
-      padding: 8px;
-      font-size: 34px;
-      line-height: 1;
-    }
-
-    .reveal-flag:empty::before {
-      content: "";
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 35%, #fff 0 16%, transparent 17%),
-        linear-gradient(135deg, var(--pink), var(--gold));
-      box-shadow:
-        -9px -6px 0 -4px rgba(31, 184, 178, 0.9),
-        9px 7px 0 -4px rgba(111, 87, 216, 0.9);
-    }
-
     .reveal-info {
       min-width: 0;
       display: grid;
@@ -1211,27 +1165,19 @@
       }
 
       .top-row {
-        grid-template-columns: minmax(72px, 1fr) minmax(190px, 330px) minmax(120px, 1fr);
-      }
-
-      .header-world-tour {
-        width: 50px;
+        grid-template-columns: minmax(72px, 1fr) minmax(210px, 360px) minmax(120px, 1fr);
       }
 
       .brand-picture {
-        max-width: min(52vw, 330px);
+        max-width: min(58vw, 360px);
       }
 
       .boot-title-lockup {
-        grid-template-columns: minmax(0, 1fr) 72px;
-      }
-
-      .boot-jaime-title {
-        height: 56px;
+        min-height: 78px;
       }
 
       .boot-world-title {
-        width: 72px;
+        width: 82px;
       }
 
       .listen-panel {
@@ -1292,13 +1238,9 @@
 
       .top-row {
         display: grid;
-        grid-template-columns: minmax(40px, 1fr) minmax(122px, 1.35fr) minmax(84px, 1fr);
+        grid-template-columns: minmax(0, 1fr) minmax(210px, 1fr) auto;
         gap: 4px;
         align-items: center;
-      }
-
-      .header-world-tour {
-        width: 36px;
       }
 
       #playView, #factsView {
@@ -1312,13 +1254,17 @@
         display: none;
       }
 
+      body.is-play-view.is-round-open #playView {
+        padding-top: clamp(24px, 6vh, 52px);
+      }
+
       .brand {
         gap: 6px;
         min-width: 0;
       }
 
       .brand-picture {
-        height: 30px;
+        height: 58px;
         max-width: 100%;
       }
 
@@ -1396,18 +1342,17 @@
         gap: 10px;
       }
 
+      .question-area {
+        flex: 0 0 auto;
+      }
+
       .boot-title-lockup {
-        grid-template-columns: minmax(0, 1fr) 54px;
-        gap: 8px;
+        min-height: 56px;
         padding: 0;
       }
 
-      .boot-jaime-title {
-        height: 40px;
-      }
-
       .boot-world-title {
-        width: 54px;
+        width: 64px;
       }
 
       .boot-card {
@@ -1421,7 +1366,7 @@
       }
 
       .listen-panel {
-        grid-template-columns: 60px minmax(0, 1fr);
+        grid-template-columns: 80px minmax(0, 1fr);
         align-items: center;
         padding: 4px 8px;
         gap: 8px;
@@ -1429,7 +1374,7 @@
       }
 
       .cover {
-        width: 76px;
+        width: 78px;
       }
 
       .cover img {
@@ -1458,6 +1403,7 @@
       .audio-row {
         grid-template-columns: 38px 1fr;
         gap: 7px;
+        margin-top: 6px;
       }
 
       .play-btn {
@@ -1491,11 +1437,12 @@
 
       .answers {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-        gap: 4px;
-        padding: 0 4px 4px;
-        flex: 1;
-        min-height: 0;
+        grid-template-rows: repeat(2, 58px);
+        gap: 6px;
+        margin-top: 28px;
+        padding: 0 4px 8px;
+        flex: 0 0 auto;
+        min-height: auto;
       }
 
       .round-actions {
@@ -1511,11 +1458,11 @@
       }
 
       .answer-btn {
-        min-height: 0;
-        height: 100%;
-        gap: 4px;
-        padding: 4px;
-        font-size: 11px;
+        min-height: 58px;
+        height: 58px;
+        gap: 6px;
+        padding: 6px;
+        font-size: 12px;
       }
 
       .answer-status-dot {
@@ -1539,7 +1486,7 @@
 
       .feedback {
         margin: 0 4px 4px;
-        flex: 1;
+        flex: 0 0 auto;
         display: flex;
         flex-direction: column;
         min-height: 0;
@@ -1555,19 +1502,14 @@
       }
 
       .reveal-media {
-        flex: 1;
+        aspect-ratio: 2 / 1;
+        flex: 0 0 auto;
         min-height: 0;
       }
 
       .reveal-image {
         height: 100%;
         min-height: 0;
-      }
-
-      .reveal-flag {
-        width: 44px;
-        height: 44px;
-        font-size: 24px;
       }
 
       .feedback-country {
@@ -1630,17 +1572,17 @@
     }
 
     @media (max-width: 380px) {
+      .top-row {
+        grid-template-columns: minmax(0, 1fr) minmax(184px, 1fr) auto;
+      }
+
       .mystery-title {
         font-size: 20px;
       }
 
       .brand-picture {
-        height: 26px;
+        height: 52px;
         max-width: 100%;
-      }
-
-      .header-world-tour {
-        width: 32px;
       }
 
       .game-title {
@@ -1719,14 +1661,13 @@
   <main class="app">
     <header class="masthead">
       <div class="top-row">
-        <img class="header-world-tour" src="art/game_title.png" alt="" aria-hidden="true">
         <div class="brand">
           <img id="custom-picture" class="brand-picture" src="art/title.png" alt="Jaime Jangles">
           <h1 class="game-title sr-only">Jaime Jangles World Tour Music Match</h1>
         </div>
         <nav class="tabs" aria-label="Game sections">
           <button class="tab-btn active" type="button" data-view="play">Play</button>
-          <button class="tab-btn" type="button" data-view="facts">Facts</button>
+          <button class="tab-btn" type="button" data-view="facts">Learn</button>
         </nav>
       </div>
     </header>
@@ -1750,7 +1691,6 @@
 
       <section id="bootPanel" class="boot-panel">
         <div class="boot-title-lockup">
-          <img class="boot-jaime-title" src="art/title.png" alt="Jaime Jangles">
           <img class="boot-world-title" src="art/game_title.png" alt="The World Tour">
         </div>
         <div class="boot-card">
@@ -1794,7 +1734,6 @@
           <div class="reveal-card">
             <div class="reveal-media">
               <img id="feedbackImage" class="reveal-image" src="art/styleimage_a.png" alt="">
-              <span id="feedbackFlag" class="reveal-flag" aria-hidden="true"></span>
             </div>
             <div class="reveal-info">
               <p id="feedbackCountry" class="feedback-country"></p>
@@ -1822,7 +1761,7 @@
       <audio id="track" preload="metadata"></audio>
     </section>
 
-    <section id="factsView" class="view" aria-label="World tour facts">
+    <section id="factsView" class="view" aria-label="Learn about the world tour">
       <div class="facts-toolbar">
         <span id="factsCount" class="facts-count"></span>
         <button id="resetButton" class="reset-btn" type="button">Reset game</button>
@@ -2035,7 +1974,6 @@
       answers: document.querySelector("#answers"),
       feedback: document.querySelector("#feedback"),
       feedbackImage: document.querySelector("#feedbackImage"),
-      feedbackFlag: document.querySelector("#feedbackFlag"),
       feedbackTitle: document.querySelector("#feedbackTitle"),
       feedbackStyle: document.querySelector("#feedbackStyle"),
       feedbackCountry: document.querySelector("#feedbackCountry"),
@@ -2287,7 +2225,6 @@
       els.answers.hidden = true;
       els.feedbackImage.src = round.image || "art/styleimage_a.png";
       els.feedbackImage.alt = `World tour picture for ${round.country}`;
-      els.feedbackFlag.innerHTML = flagImageMarkup(round);
       els.feedbackTitle.textContent = "Correct";
       els.feedbackStyle.textContent = round.style;
       els.feedbackCountry.innerHTML = `${inlineFlagMarkup(round)}<span>${round.country}</span>`;
@@ -2346,7 +2283,7 @@
     }
 
     function renderFacts() {
-      els.factsCount.textContent = `${FACTS.length} final tour facts`;
+      els.factsCount.textContent = `${FACTS.length} tour stops to learn`;
       els.factsGrid.innerHTML = FACTS.map((item) => `
         <article class="fact-card">
           <div class="fact-top">
