@@ -133,7 +133,7 @@
     .app {
       width: min(920px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 14px 0;
+      padding: 14px 0 max(18px, env(safe-area-inset-bottom));
       height: 100dvh;
       position: relative;
       z-index: 1;
@@ -241,6 +241,22 @@
       min-width: 0;
     }
 
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      justify-items: start;
+      flex-shrink: 0;
+    }
+
+    .game-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
     .brand-picture {
       display: block;
       width: 100%;
@@ -255,7 +271,7 @@
     .game-title {
       margin: 0;
       font-family: "Dekko", cursive;
-      font-size: 28px;
+      font-size: 30px;
       line-height: 1;
       color: var(--ink);
     }
@@ -406,6 +422,7 @@
       flex-shrink: 0;
       padding: 0 4px;
       min-height: 90px;
+      gap: 4px;
     }
 
     .boot-world-title {
@@ -413,6 +430,15 @@
       height: auto;
       display: block;
       filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
+    }
+
+    .boot-match-title {
+      margin: 0;
+      font-family: "Dekko", cursive;
+      font-size: 26px;
+      line-height: 1;
+      color: var(--ink);
+      text-align: center;
     }
 
     .boot-card {
@@ -883,20 +909,28 @@
       min-height: 276px;
       border-radius: var(--radius);
       overflow: hidden;
-      background: #201a2b;
+      background: #fff;
       border: 1px solid var(--line);
-      display: flex;
-      gap: 2px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .reveal-media.is-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
     }
 
     .reveal-image {
       width: 100%;
       height: 100%;
       min-height: 276px;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
       display: block;
-      flex: 1;
+      background: #fff;
+      padding: 4px;
     }
 
     .reveal-info {
@@ -921,6 +955,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(67, 160, 71, 0.1);
+      color: #1f6b33;
+      border: 1px solid rgba(67, 160, 71, 0.18);
     }
 
     .feedback-title::before {
@@ -933,6 +973,17 @@
       flex-shrink: 0;
     }
 
+    .feedback-title.is-retry::before {
+      background: var(--pink);
+      box-shadow: 0 0 0 4px rgba(240, 98, 146, 0.14);
+    }
+
+    .feedback-title.is-retry {
+      background: rgba(240, 98, 146, 0.14);
+      color: #a63f69;
+      border-color: rgba(240, 98, 146, 0.28);
+    }
+
     .feedback-style {
       color: #fff;
       background: var(--violet);
@@ -940,7 +991,10 @@
       padding: 5px 8px;
       font-size: 11px;
       font-weight: 900;
-      white-space: nowrap;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-align: center;
     }
 
     .feedback-country {
@@ -1029,6 +1083,58 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .result-brand {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      width: min(100%, 360px);
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #fffdf7 0%, #ffffff 100%);
+      box-shadow: 0 6px 16px rgba(49, 43, 86, 0.08);
+    }
+
+    .result-logo {
+      display: block;
+      width: min(100%, 336px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .result-world {
+      display: block;
+      width: min(100%, 104px);
+      height: auto;
+      object-fit: contain;
+    }
+
+    .result-brand-copy {
+      display: grid;
+      gap: 2px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .result-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    .result-title {
+      margin: 0;
+      font-family: "Dekko", cursive;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--ink);
     }
 
     .result-score {
@@ -1099,6 +1205,32 @@
       gap: 8px;
     }
 
+    .fact-media {
+      aspect-ratio: 16 / 10;
+      border-radius: calc(var(--radius) - 2px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fff;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .fact-media.is-pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .fact-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      background: #fff;
+      padding: 4px;
+    }
+
     .fact-top {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -1116,6 +1248,7 @@
 
     .fact-style {
       width: fit-content;
+      max-width: 100%;
       border-radius: 6px;
       padding: 4px 7px;
       background: #eefbf9;
@@ -1124,6 +1257,9 @@
       font-weight: 900;
       text-transform: uppercase;
       line-height: 1.2;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-align: center;
     }
 
     .fact-text {
@@ -1183,6 +1319,10 @@
 
       .boot-world-title {
         width: 82px;
+      }
+
+      .boot-match-title {
+        font-size: 22px;
       }
 
       .listen-panel {
@@ -1266,6 +1406,14 @@
       .brand {
         gap: 6px;
         min-width: 0;
+      }
+
+      .brand-copy {
+        gap: 1px;
+      }
+
+      .game-kicker {
+        font-size: 9px;
       }
 
       .brand-picture {
@@ -1360,6 +1508,10 @@
         width: 64px;
       }
 
+      .boot-match-title {
+        font-size: 18px;
+      }
+
       .boot-card {
         flex: 1;
         padding: 8px;
@@ -1452,7 +1604,7 @@
 
       .round-actions {
         gap: 4px;
-        padding: 0 4px 4px;
+        padding: 0 4px calc(18px + env(safe-area-inset-bottom));
       }
 
       .round-actions .next-btn,
@@ -1490,7 +1642,7 @@
       }
 
       .feedback {
-        margin: 0 4px 4px;
+        margin: 0 4px 8px;
         flex: 0 0 auto;
         display: flex;
         flex-direction: column;
@@ -1548,7 +1700,15 @@
       }
 
       .result-panel {
-        padding: 22px 14px;
+        padding: 22px 14px calc(26px + env(safe-area-inset-bottom));
+      }
+
+      .result-title {
+        font-size: 22px;
+      }
+
+      .question-area {
+        overflow-y: auto;
       }
 
       .result-score {
@@ -1590,8 +1750,20 @@
         max-width: 100%;
       }
 
+      .game-kicker {
+        font-size: 8px;
+      }
+
       .game-title {
         font-size: 15px;
+      }
+
+      .result-kicker {
+        font-size: 9px;
+      }
+
+      .result-title {
+        font-size: 20px;
       }
 
       .listen-panel {
@@ -1668,7 +1840,10 @@
       <div class="top-row">
         <div class="brand">
           <img id="custom-picture" class="brand-picture" src="art/title.png" alt="Jaime Jangles">
-          <h1 class="game-title sr-only">Jaime Jangles World Tour Music Match</h1>
+          <div class="brand-copy">
+            <span class="game-kicker">World Tour</span>
+            <h1 class="game-title">Match Game</h1>
+          </div>
         </div>
         <nav class="tabs" aria-label="Game sections">
           <button class="tab-btn active" type="button" data-view="play">Play</button>
@@ -1697,6 +1872,7 @@
       <section id="bootPanel" class="boot-panel">
         <div class="boot-title-lockup">
           <img class="boot-world-title" src="art/world tour.png" alt="The World Tour">
+          <p class="boot-match-title">Match Game</p>
         </div>
         <div class="boot-card">
           <img class="boot-image" src="art/boot.jpg" alt="Jangles International Orchestra start screen">
@@ -1737,9 +1913,7 @@
 
         <section id="feedback" class="feedback" aria-live="polite" hidden>
           <div class="reveal-card">
-            <div class="reveal-media">
-              <img id="feedbackImage" class="reveal-image" src="art/styleimage_a.png" alt="">
-            </div>
+            <div id="feedbackMedia" class="reveal-media"></div>
             <div class="reveal-info">
               <p id="feedbackCountry" class="feedback-country"></p>
               <div class="feedback-head">
@@ -1758,6 +1932,14 @@
       </section>
 
       <section id="resultPanel" class="result-panel" hidden>
+        <div class="result-brand">
+          <img class="result-logo" src="art/title.png" alt="Jaime Jangles">
+          <img class="result-world" src="art/world tour.png" alt="World Tour">
+          <div class="result-brand-copy">
+            <span class="result-kicker">The World Tour</span>
+            <p class="result-title">Music Match Game</p>
+          </div>
+        </div>
         <h2 id="resultScore" class="result-score">0/0</h2>
         <p id="resultCopy" class="result-copy"></p>
         <button id="againButton" class="again-btn" type="button">Play again</button>
@@ -1788,7 +1970,7 @@
       },
       {
         country: "Australia",
-        style: "Didgeridoo",
+        style: "Orchestral Music",
         flag: "🇦🇺",
         audio: "music/THEME_003_1.1.wav",
         image: "art/country_images/DanOBrien_Australia.jpg",
@@ -1804,7 +1986,7 @@
       },
       {
         country: "France",
-        style: "Musette / Chanson",
+        style: "Accordion",
         flag: "🇫🇷",
         audio: "music/FRANCE.wav",
         image: "art/country_images/Alexx Schroll_France.jpg",
@@ -1925,7 +2107,7 @@
       },
       {
         country: "United Kingdom",
-        style: "Rock & Pop",
+        style: "Orchestral Music",
         flag: "🇬🇧",
         audio: "music/UK.wav",
         image: "art/country_images/Daniel Squires_England.jpg",
@@ -1972,7 +2154,7 @@
       duration: document.querySelector("#duration"),
       answers: document.querySelector("#answers"),
       feedback: document.querySelector("#feedback"),
-      feedbackImage: document.querySelector("#feedbackImage"),
+      feedbackMedia: document.querySelector("#feedbackMedia"),
       feedbackTitle: document.querySelector("#feedbackTitle"),
       feedbackStyle: document.querySelector("#feedbackStyle"),
       feedbackCountry: document.querySelector("#feedbackCountry"),
@@ -2032,6 +2214,37 @@
 
     function inlineFlagMarkup(item) {
       return `<span class="inline-flag" aria-hidden="true">${flagImageMarkup(item)}</span>`;
+    }
+
+    function getArtistImages(item) {
+      return [item.image, item.image2].filter(Boolean);
+    }
+
+    function buildArtistImageMarkup(item, imageClass) {
+      const artistImages = getArtistImages(item);
+      const sources = artistImages.length ? artistImages : ["art/styleimage_a.png"];
+
+      return sources.map((src, index) => {
+        let altText = `World tour picture for ${item.country}`;
+        if (artistImages.length === 1) {
+          altText = `Artist from ${item.country}`;
+        } else if (artistImages.length > 1) {
+          altText = `Artist ${index + 1} from ${item.country}`;
+        }
+
+        return `<img class="${imageClass}" src="${src}" alt="${altText}" loading="lazy" decoding="async">`;
+      }).join("");
+    }
+
+    function buildArtistMediaMarkup(item, mediaClass, imageClass) {
+      const artistImages = getArtistImages(item);
+      return `<div class="${mediaClass}${artistImages.length > 1 ? " is-pair" : ""}">${buildArtistImageMarkup(item, imageClass)}</div>`;
+    }
+
+    function renderFeedbackMedia(item) {
+      const artistImages = getArtistImages(item);
+      els.feedbackMedia.className = `reveal-media${artistImages.length > 1 ? " is-pair" : ""}`;
+      els.feedbackMedia.innerHTML = buildArtistImageMarkup(item, "reveal-image");
     }
 
     function getRound() {
@@ -2223,30 +2436,9 @@
       els.mysteryPrompt.textContent = "";
       els.answers.hidden = true;
       // Build reveal image(s) — split-screen if image2 is defined
-      if (round.image2) {
-        els.feedbackImage.src = round.image || "art/styleimage_a.png";
-        els.feedbackImage.alt = `World tour picture for ${round.country} (1)`;
-        els.feedbackImage.style.flex = "1";
-        // Add second image if not already present
-        let img2 = document.getElementById("feedbackImage2");
-        if (!img2) {
-          img2 = document.createElement("img");
-          img2.id = "feedbackImage2";
-          img2.className = "reveal-image";
-          els.feedbackImage.parentNode.appendChild(img2);
-        }
-        img2.src = round.image2;
-        img2.alt = `World tour picture for ${round.country} (2)`;
-        img2.style.flex = "1";
-        img2.style.display = "block";
-      } else {
-        els.feedbackImage.src = round.image || "art/styleimage_a.png";
-        els.feedbackImage.alt = `World tour picture for ${round.country}`;
-        els.feedbackImage.style.flex = "";
-        const img2 = document.getElementById("feedbackImage2");
-        if (img2) img2.style.display = "none";
-      }
-      els.feedbackTitle.textContent = "Correct";
+      renderFeedbackMedia(round);
+      els.feedbackTitle.textContent = missedThisRound ? "Correct on Retry" : "Correct";
+      els.feedbackTitle.classList.toggle("is-retry", missedThisRound);
       els.feedbackStyle.textContent = round.style;
       els.feedbackCountry.innerHTML = `${inlineFlagMarkup(round)}<span>${round.country}</span>`;
       els.feedbackBody.textContent = round.fact;
@@ -2307,6 +2499,7 @@
       els.factsCount.textContent = `${FACTS.length} tour stops to learn`;
       els.factsGrid.innerHTML = FACTS.map((item) => `
         <article class="fact-card">
+          ${buildArtistMediaMarkup(item, "fact-media", "fact-image")}
           <div class="fact-top">
             <span class="flag" aria-hidden="true">${flagImageMarkup(item)}</span>
             <h2 class="fact-country">${item.country}</h2>
