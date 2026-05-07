@@ -1455,6 +1455,29 @@
         overflow: hidden;
       }
 
+      .question-area.is-revealed {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .question-area.is-revealed .feedback {
+        flex: 0 0 auto;
+        overflow: visible;
+      }
+
+      .question-area.is-revealed .reveal-card,
+      .question-area.is-revealed .reveal-info {
+        overflow: visible;
+      }
+
+      .question-area.is-revealed .feedback-body {
+        flex: 0 0 auto;
+        min-height: auto;
+        overflow: visible;
+        padding-right: 0;
+      }
+
       .boot-title-lockup {
         min-height: 56px;
         padding: 0;
@@ -2148,6 +2171,10 @@
       return copy;
     }
 
+    function setQuestionRevealState(isRevealed) {
+      els.questionArea.classList.toggle("is-revealed", isRevealed);
+    }
+
     function formatTime(seconds) {
       if (!Number.isFinite(seconds)) return "0:00";
       const mins = Math.floor(seconds / 60);
@@ -2259,6 +2286,7 @@
       els.scoreStrip.hidden = true;
       els.bootPanel.hidden = false;
       els.questionArea.hidden = true;
+      setQuestionRevealState(false);
       els.resultPanel.hidden = true;
       els.feedback.hidden = true;
       setRoundActions();
@@ -2334,6 +2362,7 @@
       answered = false;
       missedThisRound = false;
       els.questionArea.scrollTop = 0;
+      setQuestionRevealState(false);
       els.feedbackBody.scrollTop = 0;
       updateStats();
       resetAudio();
@@ -2406,6 +2435,7 @@
       els.feedbackBody.textContent = round.fact;
       els.feedbackBody.scrollTop = 0;
       els.feedback.hidden = false;
+      setQuestionRevealState(true);
       renderTourDots();
       setRoundActions({ next: true });
       els.nextButton.focus({ preventScroll: true });
@@ -2431,6 +2461,7 @@
     function showResults() {
       pauseTrack();
       els.questionArea.hidden = true;
+      setQuestionRevealState(false);
       els.resultPanel.hidden = false;
       els.stopStat.textContent = `${rounds.length}/${rounds.length}`;
       els.resultScore.textContent = `${score}/${rounds.length}`;
