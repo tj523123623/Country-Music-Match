@@ -312,46 +312,55 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 5px;
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       padding: 0 8px;
       flex-shrink: 0;
     }
 
     .tour-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      border: 1px solid #fff;
-      background: #d9d5e8;
-      box-shadow: 0 0 0 1px rgba(111, 87, 216, 0.14);
-      transition: width 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      border: 1px solid rgba(111, 87, 216, 0.14);
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(221, 217, 236, 0.95);
+      transition: width 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+      position: relative;
     }
 
     .tour-dot.complete {
       background: var(--aqua);
-      box-shadow: 0 0 0 1px rgba(31, 184, 178, 0.18);
+      border-color: rgba(31, 184, 178, 0.24);
+      box-shadow: 0 0 0 1px rgba(31, 184, 178, 0.16);
     }
 
     .tour-dot.current {
-      width: 18px;
+      width: 20px;
+      border-radius: 999px;
       background: var(--gold);
-      box-shadow: 0 0 0 2px rgba(246, 183, 45, 0.2);
+      border-color: rgba(246, 183, 45, 0.28);
+      box-shadow: 0 0 0 2px rgba(246, 183, 45, 0.16);
       transform: translateY(-1px);
     }
 
     .tour-dot.complete.current {
       background: var(--green);
-      box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.18);
+      border-color: rgba(67, 160, 71, 0.24);
+      box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.16);
     }
 
     .tour-dot.missed {
       background: var(--pink);
-      box-shadow: 0 0 0 1px rgba(240, 98, 146, 0.2);
+      border-color: rgba(240, 98, 146, 0.24);
+      box-shadow: 0 0 0 1px rgba(240, 98, 146, 0.18);
     }
 
-    .tour-dot.missed.current {
-      background: var(--pink);
-      box-shadow: 0 0 0 2px rgba(240, 98, 146, 0.22);
+    .tour-dot.current::after {
+      content: "";
+      position: absolute;
+      inset: 2px 5px;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
     }
 
     .stat {
@@ -1336,7 +1345,7 @@
 
       .app {
         width: min(100% - 16px, 920px);
-        padding: 4px 0 4px;
+        padding: 4px 0 max(24px, calc(28px + env(safe-area-inset-bottom)));
         height: 100dvh;
         display: flex;
         flex-direction: column;
@@ -1409,12 +1418,12 @@
       }
 
       .tour-dot {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
       }
 
       .tour-dot.current {
-        width: 14px;
+        width: 18px;
       }
 
       .score-strip .stat:first-child {
@@ -1585,7 +1594,7 @@
       .round-actions {
         gap: 4px;
         margin-top: auto;
-        padding: 0 4px calc(18px + env(safe-area-inset-bottom));
+        padding: 0 4px 12px;
       }
 
       .round-actions .next-btn,
@@ -2245,14 +2254,15 @@
         const isCurrent = index === currentRound;
         const isComplete = index < currentRound || (isCurrent && answered);
         const isMissed = missedRounds.has(index) || (isCurrent && missedThisRound);
+        const labelCountry = isComplete ? round.country : "mystery country";
         const classes = ["tour-dot"];
         if (isComplete) classes.push("complete");
         if (isCurrent) classes.push("current");
         if (isMissed) classes.push("missed");
         const status = isMissed
           ? isComplete ? "answered after retry" : "missed first try"
-          : isCurrent ? "current stop" : isComplete ? "complete" : "coming up";
-        const label = `Stop ${index + 1}: ${round.country}, ${status}`;
+          : isCurrent ? isComplete ? "complete" : "current stop" : isComplete ? "complete" : "coming up";
+        const label = `Stop ${index + 1}: ${labelCountry}, ${status}`;
         return `<span class="${classes.join(" ")}" role="listitem" aria-label="${label}" title="${label}"></span>`;
       }).join("");
     }
