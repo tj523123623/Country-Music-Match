@@ -2482,7 +2482,7 @@
       els.feedbackTitle.textContent = missedThisRound ? "Correct on Retry" : "Correct";
       els.feedbackTitle.classList.toggle("is-retry", missedThisRound);
       els.feedbackStyle.textContent = round.style;
-      els.feedbackCountry.innerHTML = `${inlineFlagMarkup(round)}<span>${round.country}</span>`;
+      els.feedbackCountry.textContent = round.country;
       els.feedbackBody.textContent = round.fact;
       els.feedbackBody.scrollTop = 0;
       els.feedback.hidden = false;
