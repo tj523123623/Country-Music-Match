@@ -258,6 +258,15 @@
       filter: drop-shadow(0 6px 12px rgba(49, 43, 86, 0.12));
     }
 
+    body.is-boot-screen .top-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    body.is-boot-screen .brand {
+      display: none;
+    }
+
     .brand-world-tour {
       display: block;
       height: 54px;
@@ -438,8 +447,8 @@
       gap: 2px;
     }
 
-    .boot-world-title {
-      width: 96px;
+    .boot-brand-title {
+      width: min(100%, 250px);
       height: auto;
       display: block;
       filter: drop-shadow(0 7px 14px rgba(49, 43, 86, 0.12));
@@ -1314,8 +1323,8 @@
         min-height: 78px;
       }
 
-      .boot-world-title {
-        width: 82px;
+      .boot-brand-title {
+        width: min(100%, 220px);
       }
 
       .boot-match-title {
@@ -1515,8 +1524,8 @@
         gap: 1px;
       }
 
-      .boot-world-title {
-        width: 64px;
+      .boot-brand-title {
+        width: min(100%, 170px);
       }
 
       .boot-match-title {
@@ -1890,7 +1899,7 @@
 
       <section id="bootPanel" class="boot-panel">
         <div class="boot-title-lockup">
-          <img class="boot-world-title" src="art/world tour.png" alt="The World Tour">
+          <img class="boot-brand-title" src="art/title.png" alt="Jaime Jangles">
           <p class="boot-match-title">Music Match Game</p>
         </div>
         <div class="boot-card">
@@ -2196,7 +2205,9 @@
     function syncBodyMode() {
       const playActive = els.playView.classList.contains("active");
       const roundOpen = playActive && !els.questionArea.hidden && els.resultPanel.hidden;
+      const bootScreenOpen = playActive && !els.bootPanel.hidden;
       document.body.classList.toggle("is-play-view", playActive);
+      document.body.classList.toggle("is-boot-screen", bootScreenOpen);
       document.body.classList.toggle("is-round-open", roundOpen);
       document.documentElement.classList.toggle("is-round-open", roundOpen);
     }
