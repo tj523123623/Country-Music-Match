@@ -1038,6 +1038,12 @@
       display: grid;
       place-items: center;
       flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 3px 5px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #ece8f4;
+      overflow: hidden;
     }
 
     .feedback-body {
@@ -2482,7 +2488,7 @@
       els.feedbackTitle.textContent = missedThisRound ? "Correct on Retry" : "Correct";
       els.feedbackTitle.classList.toggle("is-retry", missedThisRound);
       els.feedbackStyle.textContent = round.style;
-      els.feedbackCountry.textContent = round.country;
+      els.feedbackCountry.innerHTML = `${inlineFlagMarkup(round)}<span>${round.country}</span>`;
       els.feedbackBody.textContent = round.fact;
       els.feedbackBody.scrollTop = 0;
       els.feedback.hidden = false;
