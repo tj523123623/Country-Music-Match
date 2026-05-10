@@ -846,11 +846,18 @@
       place-items: center;
       padding: 5px;
       border-radius: 8px;
-      background: #fff;
-      border: 1px solid #ece8f4;
+      background: #f7f5ff;
+      border: 1px solid #ddd8ee;
       overflow: hidden;
       font-size: 24px;
       line-height: 1;
+    }
+
+    .flag[data-flag-code="np"] {
+      width: 34px;
+      min-width: 34px;
+      height: 42px;
+      padding: 3px 4px;
     }
 
     .flag-img {
@@ -1041,9 +1048,16 @@
       box-sizing: border-box;
       padding: 3px 5px;
       border-radius: 8px;
-      background: #fff;
-      border: 1px solid #ece8f4;
+      background: #f7f5ff;
+      border: 1px solid #ddd8ee;
       overflow: hidden;
+    }
+
+    .inline-flag[data-flag-code="np"] {
+      width: 32px;
+      height: 40px;
+      padding: 2px 3px;
+      border-radius: 10px;
     }
 
     .feedback-body {
@@ -1367,6 +1381,11 @@
         height: 28px;
       }
 
+      .inline-flag[data-flag-code="np"] {
+        width: 30px;
+        height: 36px;
+      }
+
       .facts-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -1664,6 +1683,12 @@
         font-size: 22px;
       }
 
+      .flag[data-flag-code="np"] {
+        width: 30px;
+        min-width: 30px;
+        height: 36px;
+      }
+
       html.is-round-open,
       body.is-play-view.is-round-open {
         height: 100dvh;
@@ -1709,6 +1734,12 @@
       .inline-flag {
         width: 32px;
         height: 23px;
+      }
+
+      .inline-flag[data-flag-code="np"] {
+        width: 26px;
+        height: 32px;
+        padding: 2px;
       }
 
       .feedback-head {
@@ -1827,7 +1858,7 @@
       }
 
       .answer-btn {
-        grid-template-columns: 28px 1fr auto;
+        grid-template-columns: 32px 1fr auto;
         min-height: 42px;
         gap: 5px;
         padding: 5px;
@@ -1843,6 +1874,17 @@
         min-width: 32px;
         height: 32px;
         font-size: 20px;
+      }
+
+      .flag[data-flag-code="np"] {
+        width: 28px;
+        min-width: 28px;
+        height: 32px;
+      }
+
+      .inline-flag[data-flag-code="np"] {
+        width: 24px;
+        height: 30px;
       }
     }
 
@@ -2244,6 +2286,10 @@
       return String.fromCharCode(...letters);
     }
 
+    function flagCodeForItem(item) {
+      return flagCodeFromEmoji(item.flag);
+    }
+
     function flagImageMarkup(item) {
       const code = flagCodeFromEmoji(item.flag);
       if (!code) return item.flag || "";
@@ -2251,7 +2297,8 @@
     }
 
     function inlineFlagMarkup(item) {
-      return `<span class="inline-flag" aria-hidden="true">${flagImageMarkup(item)}</span>`;
+      const code = flagCodeForItem(item);
+      return `<span class="inline-flag" data-flag-code="${code}" aria-hidden="true">${flagImageMarkup(item)}</span>`;
     }
 
     function getArtistImages(item) {
@@ -2407,7 +2454,7 @@
 
       els.answers.innerHTML = choices.map((choice) => `
         <button class="answer-btn" type="button" data-country="${choice.country}">
-          <span class="flag" aria-hidden="true">${flagImageMarkup(choice)}</span>
+          <span class="flag" data-flag-code="${flagCodeForItem(choice)}" aria-hidden="true">${flagImageMarkup(choice)}</span>
           <span class="answer-name">${choice.country}</span>
           <span class="answer-status-dot" aria-hidden="true"></span>
         </button>
@@ -2553,7 +2600,7 @@
         <article class="fact-card">
           ${buildArtistMediaMarkup(item, "fact-media", "fact-image")}
           <div class="fact-top">
-            <span class="flag" aria-hidden="true">${flagImageMarkup(item)}</span>
+            <span class="flag" data-flag-code="${flagCodeForItem(item)}" aria-hidden="true">${flagImageMarkup(item)}</span>
             <h2 class="fact-country">${item.country}</h2>
           </div>
           <span class="fact-style">${item.style}</span>
