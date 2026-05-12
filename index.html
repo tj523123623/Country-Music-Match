@@ -964,9 +964,11 @@
 
     .reveal-info {
       min-width: 0;
-      display: grid;
-      align-content: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       gap: 12px;
+      min-height: 0;
     }
 
     .feedback-head {
@@ -1065,6 +1067,7 @@
       font-size: 15px;
       line-height: 1.55;
       overflow-y: auto;
+      min-height: 0;
     }
 
     .start-btn,
@@ -1212,11 +1215,12 @@
     .facts-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
       flex: 1;
       min-height: 0;
       overflow-y: auto;
       padding-right: 4px;
+      align-content: start;
     }
 
     .fact-card {
@@ -1224,15 +1228,14 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: 0 7px 18px rgba(49, 43, 86, 0.08);
-      padding: 13px;
-      min-height: 184px;
-      display: grid;
-      align-content: start;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
     }
 
     .fact-media {
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 4 / 3;
       border-radius: calc(var(--radius) - 2px);
       overflow: hidden;
       border: 1px solid var(--line);
@@ -1240,21 +1243,21 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       gap: 0;
+      flex-shrink: 0;
     }
 
     .fact-media.is-pair {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
+      gap: 4px;
     }
 
     .fact-image {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+      object-position: center top;
       display: block;
       background: #fff;
-      padding: 4px;
     }
 
     .fact-top {
@@ -1388,6 +1391,7 @@
 
       .facts-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-content: start;
       }
     }
 
@@ -1801,13 +1805,17 @@
         gap: 8px;
         flex: 1;
         min-height: 0;
-        overflow: hidden;
+        overflow-y: auto;
         padding-right: 0;
+        align-content: start;
       }
 
       .fact-card {
-        min-height: auto;
         padding: 11px;
+      }
+
+      .fact-media {
+        aspect-ratio: 3 / 2;
       }
     }
 
@@ -2596,9 +2604,23 @@
 
     function renderFacts() {
       els.factsCount.textContent = `${FACTS.length} tour stops to learn`;
-      els.factsGrid.innerHTML = FACTS.map((item) => `
+      els.factsGrid.innerHTML = FACTS.flatMap((item) => {
+        const images = getArtistImages(item);
+        const sources = images.length ? images : ["art/styleimage_a.png"];
+        
+        return sources.map((src, index) => {
+          let altText = `World tour picture for ${item.country}`;
+          if (images.length === 1) {
+            altText = `Artist from ${item.country}`;
+          } else if (images.length > 1) {
+            altText = `Artist ${index + 1} from ${item.country}`;
+          }
+
+          return `
         <article class="fact-card">
-          ${buildArtistMediaMarkup(item, "fact-media", "fact-image")}
+          <div class="fact-media">
+            <img class="fact-image" src="${src}" alt="${altText}" loading="lazy" decoding="async">
+          </div>
           <div class="fact-top">
             <span class="flag" data-flag-code="${flagCodeForItem(item)}" aria-hidden="true">${flagImageMarkup(item)}</span>
             <h2 class="fact-country">${item.country}</h2>
@@ -2606,7 +2628,8 @@
           <span class="fact-style">${item.style}</span>
           <p class="fact-text">${item.fact}</p>
         </article>
-      `).join("");
+      `});
+      }).join("");
     }
 
     function setView(viewName) {
